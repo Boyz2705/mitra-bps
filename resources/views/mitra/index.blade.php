@@ -45,7 +45,7 @@
                         <td>{{ $mitra->satker }}</td>
                         <td>{{ $mitra->kecamatan }}</td>
                         <td>{{ $mitra->kelurahan }}</td>
-                        <td>{{ $mitra->{'L, P'} == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                        <td>{{ $mitra->jenis_kelamin }}</td>
                         <td>{{ $mitra->email }}</td>
                         <td>{{ $mitra->posisi }}</td>
                         <td>

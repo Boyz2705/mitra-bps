@@ -18,8 +18,8 @@ class Mitra extends Model
         'sobat_id',
         'satker',
         'kecamatan',
-        'kelurahan',
-        'L, P', // Ingat untuk merapikan nama kolom agar tidak ada masalah dengan nama kolom yang aneh.
+        'jenis_kelamin',
+        'kelurahan', // Ingat untuk merapikan nama kolom agar tidak ada masalah dengan nama kolom yang aneh.
         'email',
         'posisi',
     ];
