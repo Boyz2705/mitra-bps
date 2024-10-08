@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('jenis_kelamin'); // Ganti L, P dengan jenis_kelamin
             $table->string('email')->unique();
             $table->string('posisi')->nullable();
+            $table->string('kinerja')->default('normal');
             $table->timestamps();
         });
     }
