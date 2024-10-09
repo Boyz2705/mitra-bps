@@ -39,9 +39,10 @@ class MitraController extends Controller
             'satker' => 'nullable|string|max:255',
             'kecamatan' => 'nullable|string|max:255',
             'kelurahan' => 'nullable|string|max:255',
-            'L, P' => 'required|string|in:L,P',
+            'jenis_kelamin' => 'required|string|max:255', // Validasi untuk jenis kelamin
             'email' => 'required|email|unique:mitras,email',
             'posisi' => 'nullable|string|max:255',
+            'kinerja' => 'nullable|string|max:255',
         ]);
 
         // Buat mitra baru
@@ -85,10 +86,12 @@ class MitraController extends Controller
             'satker' => 'nullable|string|max:255',
             'kecamatan' => 'nullable|string|max:255',
             'kelurahan' => 'nullable|string|max:255',
-            'L, P' => 'required|string|in:L,P',
-            'email' => 'required|email|unique:mitras,email,' . $id,
+            'jenis_kelamin' => 'required|string|max:255', // Validasi untuk jenis kelamin
+            'email' => 'required|email|unique:mitras,email',
             'posisi' => 'nullable|string|max:255',
+            'kinerja' => 'nullable|string|max:255',
         ]);
+
 
         // Cari mitra berdasarkan ID dan update datanya
         $mitra = Mitra::findOrFail($id);

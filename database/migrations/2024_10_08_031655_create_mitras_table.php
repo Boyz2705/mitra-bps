@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('satker')->nullable();
             $table->string('kecamatan')->nullable();
             $table->string('kelurahan')->nullable();
-            $table->string('L, P'); // L = Laki-laki, P = Perempuan
+            $table->string('jenis_kelamin'); // Ganti L, P dengan jenis_kelamin
             $table->string('email')->unique();
             $table->string('posisi')->nullable();
+            $table->string('kinerja')->default('normal');
             $table->timestamps();
         });
     }
