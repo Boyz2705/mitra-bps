@@ -51,11 +51,7 @@ Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.s
 Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-
 //Kecamatan
-
-
-
 
 Route::prefix('admin/kecamatan')->group(function () {
     Route::get('/', [KecamatanController::class, 'index'])->name('kecamatan.index'); // Menampilkan daftar kecamatan
@@ -66,6 +62,8 @@ Route::prefix('admin/kecamatan')->group(function () {
     Route::delete('/{id}', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy');
 
 });
+
+//Jenis
 
 Route::prefix('admin/jenis')->group(function () {
     Route::get('/', [JenisController::class, 'index'])->name('jenis.index'); // Menampilkan daftar jenis
