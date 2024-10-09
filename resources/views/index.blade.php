@@ -1,323 +1,240 @@
+<!-- resources/views/home.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'CoWork')</title>
+    <title>Celine Is Awesome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    {{-- Include your CSS files here --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body id="page-top" class="index">
 
-    {{-- Additional styles section if you need page-specific styles --}}
-    @stack('styles')
-</head> 
-<body>
-    <div class="wrapper">
-        <section class="hero">
-          <header>
-            <div class="container">
-              <nav class="navbar navbar-light navbar-toggleable-sm">
-                <a href="#" class="navbar-brand mb-0">CoWork</a>
-
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#headerNav" aria-controls="headerNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Celine Is Awesome</a>
+            </div>
 
-                <div id="headerNav" class="collapse navbar-collapse justify-content-end">
-                  <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sec-about">About</a>
-                    </li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden active"><a href="#page-top"></a></li>
+                    <li><a class="page-scroll" href="#services">Services</a></li>
+                    <li><a class="page-scroll" href="#portfolio">Portfolio</a></li>
+                    <li><a class="page-scroll" href="#about">About</a></li>
+                    <li><a class="page-scroll" href="#team">Team</a></li>
+                    <li><a class="page-scroll" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sec-features">Features</a>
-                    </li>
 
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sec-pricing">Pricing</a>
-                    </li>
 
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sec-testimonials">Testimonials</a>
-                    </li>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Hello Errbody</div>
+                <div class="intro-heading">Yes Mel, Ajmal, Chien, Junne maybe and Syok.</div>
+                <a href="#services" class="page-scroll btn btn-xl">Aku Bukan Sempit</a>
+            </div>
+        </div>
+    </header>
 
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sec-contact">Contact</a>
-                    </li>
-                  </ul>
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Services</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
-              </nav>
             </div>
-          </header>
-
-          <div class="jumbotron jumbotron-fluid mb-0">
-            <div class="container">
-              <div class="row justify-content-center text-center">
-                <div class="col-md-10 col-lg-6">
-                  <h1 class="display-5">The Coolest Co-Working Space in Prague</h1>
-
-                  <p class="lead">Where you choose to work has impact on your productivity and creativity. It also says a lot about your business. We are the right office space.</p>
-
-                  <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#sec-pricing" role="button">Reserve Your Spot</a>
-                  </p>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="glyphicon glyphicon-tree-conifer"></i>
+                    </span>
+                    <h4 class="service-heading">Here is a pokok</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="sec-about" class="sec-about pt-5 pb-5">
-          <div class="container">
-            <div class="row justify-content-center text-center">
-              <div class="col-md-10 col-lg-8">
-                <h1 class="h4">About us</h1>
-                <p class="mt-4 mb-4">Co-working spaces are brilliant for smaller companies of up to 4 people who want a regular workspace. Cost effective, flexible and full of a vibrant energy that comes from hundreds of like-minded people going it alone.</p>
-              </div>
-            </div>
-
-            <div class="row mt-4">
-              <div class="col-sm-4">
-                <h4>350</h4>
-
-                <hr />
-
-                <h5>members</h5>
-              </div>
-
-              <div class="col-sm-4">
-                <h4>60</h4>
-
-                <hr />
-
-                <h5>co-working spaces </h5>
-              </div>
-
-              <div class="col-sm-4">
-                <h4>3</h4>
-
-                <hr />
-
-                <h5>members' bars</h5>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="sec-features" class="sec-features pt-5 pb-5">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-md-6">
-                <h3 class="h4">Lockers</h3>
-
-                <hr />
-
-                <p>Lockers come in all different shapes and sizes and can be hired in any building, even if it’s not your home building.</p>
-              </div>
-
-              <div class="col-md-6 text-center">
-                {{-- SVG Icon --}}
-              </div>
-            </div>
-
-            <div class="row align-items-center">
-              <div class="col-md-6 text-center">
-                {{-- SVG Icon --}}
-              </div>
-
-              <div class="col-md-6">
-                <h3 class="h4">Building address/Mail handling</h3>
-
-                <hr />
-
-                <p>A Czech business address for you and your mail. We can either hold your mail for you to collect, or forward it on to wherever you are.</p>
-              </div>
-            </div>
-
-            <div class="row align-items-center">
-              <div class="col-md-6">
-                <h3 class="h4">Call answering</h3>
-
-                <hr />
-
-                <p>We’ll provide someone to answer your calls professionally using your company name. They’ll be put through to you, or we’ll take a message if you’re unavailable.</p>
-              </div>
-
-              <div class="col-md-6 text-center">
-                {{-- SVG Icon --}}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="sec-pricing" class="sec-pricing">
-          <div class="container">
-            <h1 class="h4 mb-5 text-center">Great prices for everyone</h1>
-
-            <div class="row justify-content-center">
-              <div class="col-md-4">
-                <div class="card text-center">
-                  <div class="card-block">
-                    <h4 class="card-title h5">Individual</h4>
-
-                    <h5 class="card-title h6">100 &euro;/month</h5>
-
-                    <p class="card-text">The flexible place to grow your projects in a community of start-ups, freelancers and entrepreneurs, flex desk.</p>
-
-                    <a href="#" class="btn btn-primary">Find out more</a>
-                  </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="glyphicon glyphicon-heart"></i>
+                    </span>
+                    <h4 class="service-heading">Here's a heart</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card text-center">
-                  <div class="card-block">
-                    <h4 class="card-title h5">Small Group</h4>
-
-                    <h5 class="card-title h6">320 &euro;/month</h5>
-
-                    <p class="card-text">Your own personal area in an open space: desk, drawers, locker and bookcase to accessorise however you like.</p>
-
-                    <a href="#" class="btn btn-primary">Find out more</a>
-                  </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="glyphicon glyphicon-tint"></i>
+                    </span>
+                    <h4 class="service-heading">Waterfall maybe?</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card text-center">
-                  <div class="card-block justify-content-center">
-                    <h4 class="card-title h5">Large Group</h4>
-
-                    <h5 class="card-title h6">640 &euro;/month</h5>
-
-                    <p class="card-text">Your own private space, perfect for work teams of up to 50 people, inside a structure that’s always in motion</p>
-
-                    <a href="#" class="btn btn-primary">Find out more</a>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="sec-testimonials" class="sec-testimonials">
-          <div class="container">
-            <h1 class="h4 mb-5 text-center">Words from our members</h1>
-
-            <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselIndicators" data-slide-to="2"></li>
-              </ol>
-
-              <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <blockquote class="blockquote">
-                        <small>The vibe here is bright and very optimistic. Clients love to visit us here and every day we make new friends and contacts with other start-ups. Being a a member is our secret super power.</small>
-
-                        <footer class="blockquote-footer mt-2">Timothy Wilson, CTO</footer>
-                      </blockquote>
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Portfolio</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://unsplash.imgix.net/uploads%2F1411419068566071cef10%2F7562527b?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=240c45655f09c546232a6f106688e502" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Round Icons</h4>
+                        <p class="text-muted">Graphic Design</p>
                     </div>
-                  </div>
                 </div>
-
-                <div class="carousel-item">
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <blockquote class="blockquote">
-                        <small>I've been a member for over 3 years. We have always been welcomed by friendly faces and helpful staff. This co-working space has everything we need from Wi-Fi to fresh and delicious coffee.</small>
-
-                        <footer class="blockquote-footer mt-2">Ziva Stark, CEO</footer>
-                      </blockquote>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <blockquote class="blockquote">
-                        <small>I joined since its opening and I couldn't have found a better working space. Being a member is so inspiring and I love the work environment: spacious, bright and full of entrepreneurs like me!</small>
-
-                        <footer class="blockquote-footer mt-2">Teresa Swanson, CEO</footer>
-                      </blockquote>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-                <span class="fa fa-angle-left fa-2x"></span>
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-
-              <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-                <span class="fa fa-angle-right fa-2x"></span>
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+                <!-- Additional portfolio items can be added here -->
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="sec-contact" class="sec-contact pt-5 pb-5">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-7">
-                <h1 class="h4">Have a question? Get in touch with us!</h1>
-
-                <form action="#" method="POST">
-                  @csrf
-                  <fieldset class="form-group">
-                    <label for="formName">Your Name:</label>
-                    <input id="formName" name="name" class="form-control" type="text" placeholder="Your Name" required>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label for="formEmail1">Email address:</label>
-                    <input id="formEmail1" name="email" class="form-control" type="email" placeholder="Enter email" required>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label for="formMessage">Your Message:</label>
-                    <textarea id="formMessage" name="message" class="form-control" rows="3" placeholder="Your message" required></textarea>
-                  </fieldset>
-
-                  <fieldset class="form-group text-center">
-                    <button class="btn btn-primary" type="submit">Send Message</button>
-                  </fieldset>
-                </form>
-              </div>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">About</h2>
+                    <h3 class="section-subheading text-muted">Ajmal, I need help to learn how to tweak this part. I don't want this timeline crap. Haha.</h3>
+                </div>
             </div>
-          </div>
-        </section>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- About timeline section goes here -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <footer class="footer">
-          <div class="container">
-            <ul class="list-inline mb-0 text-center">
-              <li class="list-inline-item">
-                <a href="#"><span class="fa fa-twitter"></span></a>
-              </li>
+    <!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="http://www.mycatspace.com/wp-content/uploads/2013/08/adopting-a-cat.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Kay Garland</h4>
+                        <p class="text-muted">Lead Designer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Additional team members can be added here -->
+            </div>
+        </div>
+    </section>
 
-              <li class="list-inline-item">
-                <a href="#"><span class="fa fa-google-plus"></span></a>
-              </li>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form name="sentMessage" id="contactForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-12 text-center">
+                                <div id="success"></div>
+                                <button type="submit" class="btn btn-xl">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-              <li class="list-inline-item">
-                <a href="#"><span class="fa fa-instagram"></span></a>
-              </li>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright © Your Website 2014</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-              <li class="list-inline-item">
-                <a href="#"><span class="fa fa-envelope-o"></span></a>
-              </li>
-            </ul>
-          </div>
-        </footer>
-      </div>
-      <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Scripts -->
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/jquery-1.11.0.js"></script>
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
+</html>
