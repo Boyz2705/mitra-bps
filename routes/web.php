@@ -26,17 +26,17 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/mykerjasama', [KerjasamaController::class, 'kerjasama'])->name('mykerjasama');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('mitra', MitraController::class);
-// Route::prefix('mitra')->group(function () {
-//     Route::get('/', [MitraController::class, 'index'])->name('mitra.index'); // Menampilkan daftar mitra
-//     Route::get('/create', [MitraController::class, 'create'])->name('mitra.create'); // Form untuk tambah mitra baru
-//     Route::post('/', [MitraController::class, 'store'])->name('mitra.store'); // Menyimpan mitra baru
-//     Route::get('/{id}/edit', [MitraController::class, 'edit'])->name('mitra.edit'); // Form untuk edit mitra
-//     Route::put('/{id}', [MitraController::class, 'update'])->name('mitra.update'); // Memperbarui mitra
-//     Route::delete('/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy'); // Menghapus mitra
-// });
+Route::prefix('mitra')->group(function () {
+    Route::get('/', [MitraController::class, 'index'])->name('mitra.index'); // Menampilkan daftar mitra
+    Route::get('/create', [MitraController::class, 'create'])->name('mitra.create'); // Form untuk tambah mitra baru
+    Route::post('/', [MitraController::class, 'store'])->name('mitra.store'); // Menyimpan mitra baru
+    Route::get('/{id}/edit', [MitraController::class, 'edit'])->name('mitra.edit'); // Form untuk edit mitra
+    Route::put('/{id}', [MitraController::class, 'update'])->name('mitra.update'); // Memperbarui mitra
+    Route::delete('/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy'); // Menghapus mitra
+});
 
 Route::prefix('surveys')->group(function () {
     Route::get('/', [SurveyController::class, 'index'])->name('surveys.index');
