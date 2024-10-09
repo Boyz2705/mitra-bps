@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +31,11 @@ Route::prefix('mitra')->group(function () {
     Route::put('/{id}', [MitraController::class, 'update'])->name('mitra.update'); // Memperbarui mitra
     Route::delete('/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy'); // Menghapus mitra
 });
+
+
+Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
+Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
