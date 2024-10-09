@@ -21,7 +21,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="/adm"><img class="img-fluid me-3" src="{{ URL::to('/assets/sibooklogo.png') }}" style="width: 100px">Admin</a>
+        <a class="navbar-brand ps-3" href="/adm"><img class="img-fluid me-3" src="{{ URL::to('/assets/Mitraku.png') }}" style="width: 100px">Admin</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
         <!-- Navbar-->
@@ -71,9 +71,8 @@
                                 <a class="nav-link" href="/adm-services">Pembina</a>
                                 <a class="nav-link" href="/adm-clinic">Kampus</a>
                                 <a class="nav-link" href="{{ route('user.index') }}">User</a>
-
-                                <a class="nav-link" href="/adm-pet">Petugas</a>
-                                <a class="nav-link" href="/adm-session">Session Table</a>
+                                <a class="nav-link" href="{{ route('kecamatan.index') }}">Kecamatan</a>
+                                <a class="nav-link" href="{{ route('jenis.index') }}">Jenis</a>
                             </nav>
                         </div>
                     </div>

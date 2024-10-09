@@ -6,7 +6,10 @@ use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\KerjasamaController;
+use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JenisController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,6 +69,14 @@ Route::prefix('subsurvey1s')->group(function () {
     Route::delete('/subsurvey1s/{id}', [Subsurvey1Controller::class, 'destroy'])->name('subsurvey1s.destroy');
 });
 
+Route::prefix('kerjasama')->group(function () {
+    Route::get('/', [KerjasamaController::class, 'index'])->name('kerjasama.index'); // Menampilkan daftar kerjasama
+    Route::get('/create', [KerjasamaController::class, 'create'])->name('kerjasama.create'); // Form untuk tambah kerjasama baru
+    Route::post('/', [KerjasamaController::class, 'store'])->name('kerjasama.store'); // Menyimpan kerjasama baru
+    Route::get('/{id}/edit', [KerjasamaController::class, 'edit'])->name('kerjasama.edit'); // Form untuk edit kerjasama
+    Route::put('/{id}', [KerjasamaController::class, 'update'])->name('kerjasama.update'); // Memperbarui kerjasama
+    Route::delete('/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
+});
 
 Route::prefix('subsurvey2s')->group(function () {
     // Menampilkan daftar Subsurvey2
@@ -95,3 +106,27 @@ Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.
 Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
 Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+//Kecamatan
+
+Route::prefix('admin/kecamatan')->group(function () {
+    Route::get('/', [KecamatanController::class, 'index'])->name('kecamatan.index'); // Menampilkan daftar kecamatan
+    Route::get('/create', [KecamatanController::class, 'create'])->name('kecamatan.create'); // Form untuk tambah kecamatan baru
+    Route::post('/', [KecamatanController::class, 'store'])->name('kecamatan.store'); // Menyimpan kecamatan baru
+    Route::get('/{id}/edit', [KecamatanController::class, 'edit'])->name('kecamatan.edit'); // Form untuk edit kecamatan
+    Route::put('/{id}', [KecamatanController::class, 'update'])->name('kecamatan.update'); // Memperbarui kecamatan
+    Route::delete('/{id}', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy');
+
+});
+
+//Jenis
+
+Route::prefix('admin/jenis')->group(function () {
+    Route::get('/', [JenisController::class, 'index'])->name('jenis.index'); // Menampilkan daftar jenis
+    Route::get('/create', [JenisController::class, 'create'])->name('jenis.create'); // Form untuk tambah jenis baru
+    Route::post('/', [JenisController::class, 'store'])->name('jenis.store'); // Menyimpan jenis baru
+    Route::get('/{id}/edit', [JenisController::class, 'edit'])->name('jenis.edit'); // Form untuk edit jenis
+    Route::put('/{id}', [JenisController::class, 'update'])->name('jenis.update'); // Memperbarui jenis
+    Route::delete('/{id}', [JenisController::class, 'destroy'])->name('jenis.destroy');
+
+});

@@ -6,19 +6,22 @@ use App\Models\Kerjasama;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Mitra;
+use App\Models\Kecamatan;
+use App\Models\Survey;
 
 class KerjasamaController extends Controller
 {
     public function index()
-    {
-        $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey', 'subsurvey1', 'subsurvey2', 'jenis'])
-            ->orderBy('date', 'desc')
-            ->get();
+{
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','survey','survey',])->orderBy('date', 'desc')->get();
+    $mitras = Mitra::all();
+    $kecamatans = Kecamatan::all();
+    $surveys = Survey::all();
 
-        return view('admin.kerjasama', [
-            'kerjasama' => $kerjasama,
-        ]);
-    }
+    return view('admin.kerjasama', compact('kerjasama', 'mitras', 'kecamatans', 'surveys'));
+}
+
 
     public function create()
     {
