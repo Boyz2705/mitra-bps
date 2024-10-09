@@ -98,8 +98,6 @@ Route::prefix('subsurvey2s')->group(function () {
     Route::delete('/subsurvey2/{id}', [Subsurvey2Controller::class, 'destroy'])->name('subsurvey2s.destroy');
 });
 
-
-
 Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.create');
