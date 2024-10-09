@@ -104,4 +104,20 @@ public function update(Request $request, Kerjasama $kerjasama)
         $kerjasama->delete();
         return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
     }
+
+    public function kerjasama()
+{
+    // Ambil semua data kerjasama untuk user yang sedang login
+    $kerjasama = Kerjasama::with(['mitra', 'kecamatan', 'survey', 'subsurvey1', 'subsurvey2'])
+        ->where('user_id', Auth::id()) // Filter berdasarkan user yang sedang login
+        ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal
+        ->get();
+
+    // Kembalikan view dengan data kerjasama
+    return view('mykerjasama', [
+        'kerjasama' => $kerjasama,
+
+    ]);
+}
+
 }
