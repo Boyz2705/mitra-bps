@@ -15,7 +15,7 @@ use App\Http\Controllers\MitraController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();

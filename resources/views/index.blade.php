@@ -4,127 +4,320 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/x-icon" href="/assets/admin_fav.png">
-    <title>Logbook Admin</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('css2/styles-admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/cssku.css') }}">
+    <title>@yield('title', 'CoWork')</title>
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+    {{-- Include your CSS files here --}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <!-- FontAwesome -->
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-</head>
+    {{-- Additional styles section if you need page-specific styles --}}
+    @stack('styles')
+</head> 
+<body>
+    <div class="wrapper">
+        <section class="hero">
+          <header>
+            <div class="container">
+              <nav class="navbar navbar-light navbar-toggleable-sm">
+                <a href="#" class="navbar-brand mb-0">CoWork</a>
 
-<body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="/adm">
-            <img class="img-fluid me-3" src="{{ URL::to('/assets/sibooklogo.png') }}" style="width: 100px">Admin
-        </a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
-                </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
-                    <form id="logout-form" action="#" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#headerNav" aria-controls="headerNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="headerNav" class="collapse navbar-collapse justify-content-end">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sec-about">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sec-features">Features</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sec-pricing">Pricing</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sec-testimonials">Testimonials</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sec-contact">Contact</a>
+                    </li>
+                  </ul>
                 </div>
-            </li>
-        </ul>
-    </nav>
+              </nav>
+            </div>
+          </header>
 
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="/adm">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
-                        <a class="nav-link" href="/adm-status">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Status
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Manage Tables
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/adm-app">Logbook</a>
-                                <a class="nav-link" href="/adm-services">Pembina</a>
-                                <a class="nav-link" href="/adm-clinic">Kampus</a>
-                                <a class="nav-link" href="/adm-user">User</a>
-                                <a class="nav-link" href="/adm-pet">Petugas</a>
-                                <a class="nav-link" href="/adm-session">Session Table</a>
-                            </nav>
-                        </div>
+          <div class="jumbotron jumbotron-fluid mb-0">
+            <div class="container">
+              <div class="row justify-content-center text-center">
+                <div class="col-md-10 col-lg-6">
+                  <h1 class="display-5">The Coolest Co-Working Space in Prague</h1>
+
+                  <p class="lead">Where you choose to work has impact on your productivity and creativity. It also says a lot about your business. We are the right office space.</p>
+
+                  <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#sec-pricing" role="button">Reserve Your Spot</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-about" class="sec-about pt-5 pb-5">
+          <div class="container">
+            <div class="row justify-content-center text-center">
+              <div class="col-md-10 col-lg-8">
+                <h1 class="h4">About us</h1>
+                <p class="mt-4 mb-4">Co-working spaces are brilliant for smaller companies of up to 4 people who want a regular workspace. Cost effective, flexible and full of a vibrant energy that comes from hundreds of like-minded people going it alone.</p>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-sm-4">
+                <h4>350</h4>
+
+                <hr />
+
+                <h5>members</h5>
+              </div>
+
+              <div class="col-sm-4">
+                <h4>60</h4>
+
+                <hr />
+
+                <h5>co-working spaces </h5>
+              </div>
+
+              <div class="col-sm-4">
+                <h4>3</h4>
+
+                <hr />
+
+                <h5>members' bars</h5>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-features" class="sec-features pt-5 pb-5">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h3 class="h4">Lockers</h3>
+
+                <hr />
+
+                <p>Lockers come in all different shapes and sizes and can be hired in any building, even if it’s not your home building.</p>
+              </div>
+
+              <div class="col-md-6 text-center">
+                {{-- SVG Icon --}}
+              </div>
+            </div>
+
+            <div class="row align-items-center">
+              <div class="col-md-6 text-center">
+                {{-- SVG Icon --}}
+              </div>
+
+              <div class="col-md-6">
+                <h3 class="h4">Building address/Mail handling</h3>
+
+                <hr />
+
+                <p>A Czech business address for you and your mail. We can either hold your mail for you to collect, or forward it on to wherever you are.</p>
+              </div>
+            </div>
+
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h3 class="h4">Call answering</h3>
+
+                <hr />
+
+                <p>We’ll provide someone to answer your calls professionally using your company name. They’ll be put through to you, or we’ll take a message if you’re unavailable.</p>
+              </div>
+
+              <div class="col-md-6 text-center">
+                {{-- SVG Icon --}}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-pricing" class="sec-pricing">
+          <div class="container">
+            <h1 class="h4 mb-5 text-center">Great prices for everyone</h1>
+
+            <div class="row justify-content-center">
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <div class="card-block">
+                    <h4 class="card-title h5">Individual</h4>
+
+                    <h5 class="card-title h6">100 &euro;/month</h5>
+
+                    <p class="card-text">The flexible place to grow your projects in a community of start-ups, freelancers and entrepreneurs, flex desk.</p>
+
+                    <a href="#" class="btn btn-primary">Find out more</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <div class="card-block">
+                    <h4 class="card-title h5">Small Group</h4>
+
+                    <h5 class="card-title h6">320 &euro;/month</h5>
+
+                    <p class="card-text">Your own personal area in an open space: desk, drawers, locker and bookcase to accessorise however you like.</p>
+
+                    <a href="#" class="btn btn-primary">Find out more</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <div class="card-block justify-content-center">
+                    <h4 class="card-title h5">Large Group</h4>
+
+                    <h5 class="card-title h6">640 &euro;/month</h5>
+
+                    <p class="card-text">Your own private space, perfect for work teams of up to 50 people, inside a structure that’s always in motion</p>
+
+                    <a href="#" class="btn btn-primary">Find out more</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-testimonials" class="sec-testimonials">
+          <div class="container">
+            <h1 class="h4 mb-5 text-center">Words from our members</h1>
+
+            <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselIndicators" data-slide-to="2"></li>
+              </ol>
+
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <blockquote class="blockquote">
+                        <small>The vibe here is bright and very optimistic. Clients love to visit us here and every day we make new friends and contacts with other start-ups. Being a a member is our secret super power.</small>
+
+                        <footer class="blockquote-footer mt-2">Timothy Wilson, CTO</footer>
+                      </blockquote>
                     </div>
+                  </div>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    {{ Auth::user()->name }}
-                </div>
-            </nav>
-        </div>
 
-        <!-- main content -->
-        <div id="layoutSidenav_content">
-            <main>
-                @yield('content')
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; SiBook2024</div>
+                <div class="carousel-item">
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <blockquote class="blockquote">
+                        <small>I've been a member for over 3 years. We have always been welcomed by friendly faces and helpful staff. This co-working space has everything we need from Wi-Fi to fresh and delicious coffee.</small>
+
+                        <footer class="blockquote-footer mt-2">Ziva Stark, CEO</footer>
+                      </blockquote>
                     </div>
+                  </div>
                 </div>
-            </footer>
-        </div>
-    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
+                <div class="carousel-item">
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <blockquote class="blockquote">
+                        <small>I joined since its opening and I couldn't have found a better working space. Being a member is so inspiring and I love the work environment: spacious, bright and full of entrepreneurs like me!</small>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <footer class="blockquote-footer mt-2">Teresa Swanson, CEO</footer>
+                      </blockquote>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+              <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                <span class="fa fa-angle-left fa-2x"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
 
-    <!-- Sidebar Toggle Script -->
-    <script>
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            document.body.classList.toggle('sb-sidenav-toggled');
-        });
-    </script>
+              <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                <span class="fa fa-angle-right fa-2x"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </section>
 
-    <!-- Inisialisasi DataTables -->
-    <script>
-        $(document).ready(function() {
-            $('#datatablesSimple').DataTable({
-                "pagingType": "full_numbers",
-                "order": [[ 3, "desc" ]] // Kolom ke-4 untuk pengurutan berdasarkan tanggal
-            });
-        });
-    </script>
+        <section id="sec-contact" class="sec-contact pt-5 pb-5">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-7">
+                <h1 class="h4">Have a question? Get in touch with us!</h1>
+
+                <form action="#" method="POST">
+                  @csrf
+                  <fieldset class="form-group">
+                    <label for="formName">Your Name:</label>
+                    <input id="formName" name="name" class="form-control" type="text" placeholder="Your Name" required>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <label for="formEmail1">Email address:</label>
+                    <input id="formEmail1" name="email" class="form-control" type="email" placeholder="Enter email" required>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <label for="formMessage">Your Message:</label>
+                    <textarea id="formMessage" name="message" class="form-control" rows="3" placeholder="Your message" required></textarea>
+                  </fieldset>
+
+                  <fieldset class="form-group text-center">
+                    <button class="btn btn-primary" type="submit">Send Message</button>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <div class="container">
+            <ul class="list-inline mb-0 text-center">
+              <li class="list-inline-item">
+                <a href="#"><span class="fa fa-twitter"></span></a>
+              </li>
+
+              <li class="list-inline-item">
+                <a href="#"><span class="fa fa-google-plus"></span></a>
+              </li>
+
+              <li class="list-inline-item">
+                <a href="#"><span class="fa fa-instagram"></span></a>
+              </li>
+
+              <li class="list-inline-item">
+                <a href="#"><span class="fa fa-envelope-o"></span></a>
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+      <script src="{{ asset('js/app.js') }}"></script>
 </body>
-</html>
