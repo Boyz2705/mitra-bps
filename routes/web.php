@@ -10,16 +10,7 @@ use App\Http\Controllers\KerjasamaController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JenisController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('index');
@@ -44,28 +35,15 @@ Route::prefix('surveys')->group(function () {
     Route::post('/', [SurveyController::class, 'store'])->name('surveys.store');
     Route::get('/surveys/{id}/edit', [SurveyController::class, 'edit'])->name('surveys.edit');
     Route::put('/surveys/{id}', [SurveyController::class, 'update'])->name('surveys.update');
-
     Route::delete('/{id}', [SurveyController::class, 'destroy'])->name('surveys.destroy');
 });
 
-
 Route::prefix('subsurvey1s')->group(function () {
-    // Menampilkan daftar Subsurvey1
     Route::get('/', [Subsurvey1Controller::class, 'index'])->name('subsurvey1s.index');
-
-    // Menampilkan form untuk membuat Subsurvey1 baru
     Route::get('/create', [Subsurvey1Controller::class, 'create'])->name('subsurvey1s.create');
-
-    // Menyimpan Subsurvey1 baru
     Route::post('/', [Subsurvey1Controller::class, 'store'])->name('subsurvey1s.store');
-
-    // Menampilkan form untuk mengedit Subsurvey1
     Route::get('/subsurvey1/{id}/edit', [Subsurvey1Controller::class, 'edit'])->name('subsurvey1s.edit');
-
-    // Memperbarui Subsurvey1 yang ada
     Route::put('/subsurvey1s/{id}', [Subsurvey1Controller::class, 'update'])->name('subsurvey1s.update');
-
-    // Menghapus Subsurvey1
     Route::delete('/subsurvey1s/{id}', [Subsurvey1Controller::class, 'destroy'])->name('subsurvey1s.destroy');
 });
 
@@ -75,30 +53,18 @@ Route::prefix('kerjasama')->group(function () {
     Route::post('/', [KerjasamaController::class, 'store'])->name('kerjasama.store'); // Menyimpan kerjasama baru
     Route::get('/{id}/edit', [KerjasamaController::class, 'edit'])->name('kerjasama.edit'); // Form untuk edit kerjasama
     Route::put('/{id}', [KerjasamaController::class, 'update'])->name('kerjasama.update'); // Memperbarui kerjasama
-    Route::delete('/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
+    Route::delete('/kerjasama/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
 });
 
 Route::prefix('subsurvey2s')->group(function () {
     // Menampilkan daftar Subsurvey2
     Route::get('/', [Subsurvey2Controller::class, 'index'])->name('subsurvey2s.index');
-
-    // Menampilkan form untuk membuat Subsurvey2 baru
     Route::get('/create', [Subsurvey2Controller::class, 'create'])->name('subsurvey2s.create');
-
-    // Menyimpan Subsurvey2 baru
     Route::post('/', [Subsurvey2Controller::class, 'store'])->name('subsurvey2s.store');
-
-    // Menampilkan form untuk mengedit Subsurvey2
     Route::get('subsurvey2/{id}/edit', [Subsurvey2Controller::class, 'edit'])->name('subsurvey2s.edit');
-
-    // Memperbarui Subsurvey2 yang ada
     Route::put('/subsurvey2/{id}', [Subsurvey2Controller::class, 'update'])->name('subsurvey2s.update');
-
-    // Menghapus Subsurvey2
     Route::delete('/subsurvey2/{id}', [Subsurvey2Controller::class, 'destroy'])->name('subsurvey2s.destroy');
 });
-
-
 
 Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
@@ -107,7 +73,6 @@ Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.s
 Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-//Kecamatan
 
 Route::prefix('admin/kecamatan')->group(function () {
     Route::get('/', [KecamatanController::class, 'index'])->name('kecamatan.index'); // Menampilkan daftar kecamatan

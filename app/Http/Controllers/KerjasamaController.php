@@ -61,7 +61,9 @@ class KerjasamaController extends Controller
         ]);
     }
 
-    public function edit($id)
+    // KerjasamaController.php
+
+public function edit($id)
 {
     $kerjasama = Kerjasama::findOrFail($id);
     $users = User::all();
@@ -70,15 +72,16 @@ class KerjasamaController extends Controller
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all();
     $subsurvey2s = Subsurvey2::all();
-    $jenis = Jenis::all(); // Tambahkan ini
+    $jenis = Jenis::all();
 
     return view('kerjasama.edit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
-
-
-public function update(Request $request, Kerjasama $kerjasama)
+public function update(Request $request, $id)
 {
+    $kerjasama = Kerjasama::findOrFail($id); // Load model berdasarkan ID
+
+    // Lakukan validasi data
     $data = $request->validate([
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
@@ -89,19 +92,22 @@ public function update(Request $request, Kerjasama $kerjasama)
         'jenis_id' => 'required|exists:jenis,id',
         'date' => 'required|date',
         'honor' => 'required|integer',
-        'bulan' => 'required|string|in:bulan,triwulan', // Validasi untuk bulan
+        'bulan' => 'required|string|in:bulan,triwulan',
     ]);
 
-    // Perbarui data kerjasama
+    // Update model dengan data yang divalidasi
     $kerjasama->update($data);
 
+    // Redirect dengan pesan sukses
     return redirect()->route('kerjasama.index')->with('success', 'Kerjasama updated successfully.');
 }
 
+public function destroy($id)
+{
 
-    public function destroy(Kerjasama $kerjasama)
-    {
-        $kerjasama->delete();
-        return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
-    }
+    $kerjasama = Kerjasama::findOrFail($id);
+    $kerjasama->delete();
+
+    return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
+}
 }
