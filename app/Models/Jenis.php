@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kecamatan extends Model
+class Jenis extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nama_kecamatan',
+        'nama_jenis',
     ];
 
-    // Relasi dengan tabel Kerjasama
-    public function kerjasamas()
+    public function jenis()
     {
         return $this->hasMany(Kerjasama::class);
     }

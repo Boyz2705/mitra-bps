@@ -13,6 +13,10 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS (untuk modal) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- FontAwesome -->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -21,7 +25,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="/adm"><img class="img-fluid me-3" src="{{ URL::to('/assets/sibooklogo.png') }}" style="width: 100px">Admin</a>
+        <a class="navbar-brand ps-3" href="/adm"><img class="img-fluid me-3" src="{{ URL::to('/assets/Mitraku.png') }}" style="width: 100px">Admin</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
         <!-- Navbar-->
@@ -67,21 +71,21 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/adm-app">Logbook </a>
-                                <a class="nav-link" href="/adm-services">Pembina</a>
-                                <a class="nav-link" href="/adm-clinic">Kampus</a>
+                                <a class="nav-link" href="/kerjasama">Kerjasama </a>
+                                <a class="nav-link" href="/mitra">Mitra </a>
+                                <a class="nav-link" href="/surveys">Surveys</a>
+                                <a class="nav-link" href="/subsurvey1s">SubSurvey1</a>
+                                <a class="nav-link" href="/subsurvey2s">SubSurvey2s</a>
                                 <a class="nav-link" href="{{ route('user.index') }}">User</a>
                                 <a class="nav-link" href="{{ route('kecamatan.index') }}">Kecamatan</a>
-
-                            
-                                <a class="nav-link" href="/adm-session">Session Table</a>
+                                <a class="nav-link" href="{{ route('jenis.index') }}">Jenis</a>
                             </nav>
                         </div>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    {{ auth::user()->name }}
+                    {{-- {{ auth::user()->name }} --}}
                 </div>
             </nav>
         </div>
