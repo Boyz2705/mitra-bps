@@ -24,4 +24,7 @@ class Mitra extends Model
         'posisi',
         'kinerja',
     ];
+    public function kerjasamas(){
+        return $this->hasMany(Kerjasama::class, 'subsurvey1_id');
+    }
 }
