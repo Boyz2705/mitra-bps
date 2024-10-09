@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('css2/styles-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cssku.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
@@ -55,13 +56,17 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="/adm">
+                        <a class="nav-link" href="/kerjatidaktepat">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="/adm-status">
+                        <a class="nav-link" href="/kerjasama/pivot-report">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Status
+                            Pivot Report
+                        </a>
+                        <a class="nav-link" href="/kerjatidaktepat">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Kerjasama Tidak Tepat
                         </a>
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">

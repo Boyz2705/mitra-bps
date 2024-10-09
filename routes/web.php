@@ -27,6 +27,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/mykerjasama', [KerjasamaController::class, 'kerjasama'])->name('mykerjasama');
+Route::get('/kerjasama/pivot-report', [KerjasamaController::class, 'pivotReport'])->name('kerjasama.pivot_report');
+Route::get('/kerjatidaktepat', [KerjasamaController::class, 'index2'])->name('kerjasama.index2');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('mitra', MitraController::class);
 Route::prefix('mitra')->group(function () {
