@@ -22,5 +22,6 @@ class Mitra extends Model
         'kelurahan', // Ingat untuk merapikan nama kolom agar tidak ada masalah dengan nama kolom yang aneh.
         'email',
         'posisi',
+        'kinerja',
     ];
 }
