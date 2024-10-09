@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MitraController;
+<<<<<<< HEAD
+use App\Http\Controllers\KerjasamaController;
+=======
 use App\Http\Controllers\UserController;
+>>>>>>> a57d8e8636876aa7e02cc0f62e5566653b45d0fd
 use App\Http\Controllers\KecamatanController;
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +37,16 @@ Route::prefix('mitra')->group(function () {
     Route::delete('/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy'); // Menghapus mitra
 });
 
+<<<<<<< HEAD
+Route::prefix('kerjasama')->group(function () {
+    Route::get('/', [KerjasamaController::class, 'index'])->name('kerjasama.index'); // Menampilkan daftar kerjasama
+    Route::get('/create', [KerjasamaController::class, 'create'])->name('kerjasama.create'); // Form untuk tambah kerjasama baru
+    Route::post('/', [KerjasamaController::class, 'store'])->name('kerjasama.store'); // Menyimpan kerjasama baru
+    Route::get('/{id}/edit', [KerjasamaController::class, 'edit'])->name('kerjasama.edit'); // Form untuk edit kerjasama
+    Route::put('/{id}', [KerjasamaController::class, 'update'])->name('kerjasama.update'); // Memperbarui kerjasama
+    Route::delete('/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
+});
+=======
 
 Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
@@ -40,6 +54,8 @@ Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.
 Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
 Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+>>>>>>> a57d8e8636876aa7e02cc0f62e5566653b45d0fd
+
 
 
 
