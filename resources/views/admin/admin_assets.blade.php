@@ -70,7 +70,8 @@
                                 <a class="nav-link" href="/adm-app">Logbook </a>
                                 <a class="nav-link" href="/adm-services">Pembina</a>
                                 <a class="nav-link" href="/adm-clinic">Kampus</a>
-                                <a class="nav-link" href="/adm-user">User</a>
+                                <a class="nav-link" href="{{ route('user.index') }}">User</a>
+
                                 <a class="nav-link" href="/adm-pet">Petugas</a>
                                 <a class="nav-link" href="/adm-session">Session Table</a>
                             </nav>
