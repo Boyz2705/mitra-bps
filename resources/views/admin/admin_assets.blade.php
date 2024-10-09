@@ -72,9 +72,7 @@
                                 <a class="nav-link" href="/adm-clinic">Kampus</a>
                                 <a class="nav-link" href="{{ route('user.index') }}">User</a>
                                 <a class="nav-link" href="{{ route('kecamatan.index') }}">Kecamatan</a>
-
-
-                                <a class="nav-link" href="/adm-session">Session Table</a>
+                                <a class="nav-link" href="{{ route('jenis.index') }}">Jenis</a>
                             </nav>
                         </div>
                     </div>
