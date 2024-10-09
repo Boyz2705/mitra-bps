@@ -42,6 +42,7 @@ class MitraController extends Controller
             'jenis_kelamin' => 'required|string|max:255', // Validasi untuk jenis kelamin
             'email' => 'required|email|unique:mitras,email',
             'posisi' => 'nullable|string|max:255',
+            'kinerja' => 'nullable|string|max:255',
         ]);
 
         // Buat mitra baru

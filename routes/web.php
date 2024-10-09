@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MitraController;
-use App\Http\Controllers\KerjasamaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KerjasamaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,9 +43,29 @@ Route::prefix('kerjasama')->group(function () {
     Route::delete('/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
 });
 
+
 Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
 Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
+
+
+
+//Kecamatan
+
+
+
+
+Route::prefix('admin/kecamatan')->group(function () {
+    Route::get('/', [KecamatanController::class, 'index'])->name('kecamatan.index'); // Menampilkan daftar kecamatan
+    Route::get('/create', [KecamatanController::class, 'create'])->name('kecamatan.create'); // Form untuk tambah kecamatan baru
+    Route::post('/', [KecamatanController::class, 'store'])->name('kecamatan.store'); // Menyimpan kecamatan baru
+    Route::get('/{id}/edit', [KecamatanController::class, 'edit'])->name('kecamatan.edit'); // Form untuk edit kecamatan
+    Route::put('/{id}', [KecamatanController::class, 'update'])->name('kecamatan.update'); // Memperbarui kecamatan
+    Route::delete('/{id}', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy');
+
+});
