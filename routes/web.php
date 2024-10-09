@@ -59,3 +59,13 @@ Route::prefix('admin/kecamatan')->group(function () {
     Route::delete('/{id}', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy');
 
 });
+
+Route::prefix('admin/jenis')->group(function () {
+    Route::get('/', [JenisController::class, 'index'])->name('jenis.index'); // Menampilkan daftar jenis
+    Route::get('/create', [JenisController::class, 'create'])->name('jenis.create'); // Form untuk tambah jenis baru
+    Route::post('/', [JenisController::class, 'store'])->name('jenis.store'); // Menyimpan jenis baru
+    Route::get('/{id}/edit', [JenisController::class, 'edit'])->name('jenis.edit'); // Form untuk edit jenis
+    Route::put('/{id}', [JenisController::class, 'update'])->name('jenis.update'); // Memperbarui jenis
+    Route::delete('/{id}', [JenisController::class, 'destroy'])->name('jenis.destroy');
+
+});
