@@ -24,6 +24,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>ID</th>
                         <th>User</th>
                         <th>Mitra</th>
                         <th>Kecamatan</th>
@@ -41,6 +42,7 @@
                     @foreach($kerjasama as $k)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $k->id }}</td>
                             <td>{{ $k->user->name }}</td>
                             <td>{{ $k->mitra->nama_mitra }}</td>
                             <td>{{ $k->kecamatan->nama_kecamatan }}</td>
@@ -146,7 +148,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Honor</label>
-                                <input name="honor" type="number" class="form-control" required>
+                                <input id="formatted_honor" type="text" class="form-control" required>
+                                <input id="honor" name="honor" type="hidden">
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Periode</label>
@@ -171,6 +174,42 @@
         </div>
     </div>
 </div>
+
+<script>
+    const formattedHonorInput = document.getElementById('formatted_honor');
+    const honorInput = document.getElementById('honor');
+
+    formattedHonorInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^,\d]/g, '').toString(); // Hanya ambil angka
+
+        if (value) {
+            // Format rupiah
+            let formattedValue = formatRupiah(value);
+            e.target.value = formattedValue;
+        } else {
+            e.target.value = '';
+        }
+
+        // Simpan nilai asli ke hidden input
+        honorInput.value = value;
+    });
+
+    function formatRupiah(value) {
+        let numberString = value.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // Menambahkan titik jika ada ribuan
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        return rupiah;
+    }
+</script>
 
 @endsection
 

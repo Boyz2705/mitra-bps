@@ -17,6 +17,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Mitra</th>
+                                <th>Tanggal</th>
                                 <th>Total Honor</th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                                 <tr>
                                     <td>{{ $kerjasama->id }}</td>
                                     <td>{{ $kerjasama->mitra_name }}</td>
+                                    <td>{{ $kerjasama->date }}</td>
                                     <td>Rp {{ number_format($kerjasama->honor, 0, ',', '.') }}</td>
                                 </tr>
                             @endforeach
