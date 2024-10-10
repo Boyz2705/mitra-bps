@@ -32,6 +32,20 @@ class KerjasamaController extends Controller
     return view('kerjasama.index', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
+public function index3()
+{
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','subsurvey1','subsurvey2'])->orderBy('date', 'desc')->get();
+    $users = User::all();
+    $mitras = Mitra::all();
+    $kecamatans = Kecamatan::all();
+    $surveys = Survey::all();
+    $subsurvey1s = Subsurvey1::all(); // Subsurvey1
+    $subsurvey2s = Subsurvey2::all(); // Subsurvey2
+    $jenis = Jenis::all(); // Jenis
+
+    return view('kerjasamaku', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+}
+
 // Example: KerjasamaController.php
 
 public function index2()
