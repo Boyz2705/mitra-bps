@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Kecamatan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -57,4 +58,5 @@ class Kerjasama extends Model
     {
         return $this->belongsTo(Jenis::class);
     }
+
 }

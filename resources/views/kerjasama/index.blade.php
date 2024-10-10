@@ -53,10 +53,10 @@
                             <td>{{ $k->bulan }}</td>
                             <td>
                                 <a href="{{ route('kerjasama.edit', $k->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('kerjasama.destroy', $k->id) }}" method="POST" style="display:inline-block;">
+                                <form action="{{ route('kerjasama.destroy', $k->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus kerjasama ini?')">Hapus</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
                                 </form>
                             </td>
                         </tr>

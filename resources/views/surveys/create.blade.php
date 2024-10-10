@@ -6,7 +6,7 @@
     <div class="card mt-4 mb-4">
         <div class="card-header">
             <i class="fas fa-plus me-1"></i>
-            Form Tambah Survey
+            Tambah Survey
         </div>
         <div class="card-body">
             @if ($message = Session::get('success'))
