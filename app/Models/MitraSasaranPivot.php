@@ -14,6 +14,7 @@ class MitraSasaranPivot extends Model
     protected $fillable = [
         'mitra_id',
         'tahun',
+        'bulan',
         'tepat_sasaran',
         'total_honor'
     ];

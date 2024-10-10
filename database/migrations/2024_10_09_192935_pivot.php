@@ -13,11 +13,13 @@ return new class extends Migration
             $table->unsignedBigInteger('mitra_id');
             $table->foreign('mitra_id')->references('id')->on('mitras')->onDelete('cascade');
             $table->year('tahun');
+            $table->tinyInteger('bulan'); // Tambahkan kolom bulan untuk penyimpanan bulan
             $table->boolean('tepat_sasaran');
             $table->integer('total_honor');
             $table->timestamps();
 
-            $table->unique(['mitra_id', 'tahun']);
+            // Pastikan kombinasi mitra_id, tahun, dan bulan adalah unik
+            $table->unique(['mitra_id', 'tahun', 'bulan']);
         });
     }
 

@@ -24,6 +24,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>ID</th>
                         <th>User</th>
                         <th>Mitra</th>
                         <th>Kecamatan</th>
@@ -41,6 +42,7 @@
                     @foreach($kerjasama as $k)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $k->id }}</td>
                             <td>{{ $k->user->name }}</td>
                             <td>{{ $k->mitra->nama_mitra }}</td>
                             <td>{{ $k->kecamatan->nama_kecamatan }}</td>
@@ -110,7 +112,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Survey</label>
-                                <select name="survey_id" class="form-select" required>
+                                <select name="survey_id" id="survey_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Survey</option>
                                     @foreach($surveys as $survey)
                                         <option value="{{ $survey->id }}">{{ $survey->nama_survey }}</option>
                                     @endforeach
@@ -118,17 +121,19 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Subsurvey 1</label>
-                                <select name="subsurvey1_id" class="form-select" required>
+                                <select name="subsurvey1_id" id="subsurvey1_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Subsurvey 1</option>
                                     @foreach($subsurvey1s as $subsurvey1)
-                                        <option value="{{ $subsurvey1->id }}">{{ $subsurvey1->nama_subsurvey }}</option>
+                                        <option value="{{ $subsurvey1->id }}" data-survey="{{ $subsurvey1->id_survey }}">{{ $subsurvey1->nama_subsurvey }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Subsurvey 2</label>
-                                <select name="subsurvey2_id" class="form-select" required>
+                                <select name="subsurvey2_id" id="subsurvey2_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Subsurvey 2</option>
                                     @foreach($subsurvey2s as $subsurvey2)
-                                        <option value="{{ $subsurvey2->id }}">{{ $subsurvey2->nama_subsurvey2s }}</option>
+                                        <option value="{{ $subsurvey2->id }}" data-subsurvey1="{{ $subsurvey2->id_subsurvey1 }}">{{ $subsurvey2->nama_subsurvey2s }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -146,7 +151,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Honor</label>
-                                <input name="honor" type="number" class="form-control" required>
+                                <input id="formatted_honor" type="text" class="form-control" required>
+                                <input id="honor" name="honor" type="hidden">
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Periode</label>
@@ -172,6 +178,76 @@
     </div>
 </div>
 
+<script>
+    const formattedHonorInput = document.getElementById('formatted_honor');
+    const honorInput = document.getElementById('honor');
+
+    formattedHonorInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^,\d]/g, '').toString(); // Hanya ambil angka
+
+        if (value) {
+            // Format rupiah
+            let formattedValue = formatRupiah(value);
+            e.target.value = formattedValue;
+        } else {
+            e.target.value = '';
+        }
+
+        // Simpan nilai asli ke hidden input
+        honorInput.value = value;
+    });
+
+    function formatRupiah(value) {
+        let numberString = value.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // Menambahkan titik jika ada ribuan
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        return rupiah;
+    }
+</script>
+
+<script>
+$(document).ready(function() {
+    // Filter subsurvey1 based on survey
+    $('#survey_id').on('change', function() {
+        var surveyId = $(this).val();
+
+        // Reset subsurvey1 and subsurvey2
+        $('#subsurvey1_id').val('').find('option').hide().filter('[value=""]').show();
+        $('#subsurvey2_id').val('').find('option').hide().filter('[value=""]').show();
+
+        // Show relevant subsurvey1 options
+        $('#subsurvey1_id option').each(function() {
+            if ($(this).data('survey') == surveyId) {
+                $(this).show();
+            }
+        });
+    });
+
+    // Filter subsurvey2 based on subsurvey1
+    $('#subsurvey1_id').on('change', function() {
+        var subsurvey1Id = $(this).val();
+
+        // Reset and hide all options in subsurvey2
+        $('#subsurvey2_id').val('').find('option').hide().filter('[value=""]').show();
+
+        // Show relevant subsurvey2 options
+        $('#subsurvey2_id option').each(function() {
+            if ($(this).data('subsurvey1') == subsurvey1Id) {
+                $(this).show();
+            }
+        });
+    });
+});
+</script>
 @endsection
 
 @if(session('alert'))
