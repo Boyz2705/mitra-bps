@@ -127,15 +127,19 @@ public function index2()
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all();
     $subsurvey2s = Subsurvey2::all();
-    $jenis = Jenis::all(); // Tambahkan ini
+    $jenis = Jenis::all();
 
     return view('kerjasama.edit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 
 
-public function update(Request $request, Kerjasama $kerjasama)
+
+public function update(Request $request, $id)
 {
+    $kerjasama = Kerjasama::findOrFail($id); // Load model berdasarkan ID
+
+    // Lakukan validasi data
     $data = $request->validate([
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
@@ -149,19 +153,24 @@ public function update(Request $request, Kerjasama $kerjasama)
         'bulan' => 'required|string|in:bulan,triwulan',
     ]);
 
+    // Update model dengan data yang divalidasi
     $kerjasama->update($data);
-
     $this->updateMitraSasaranPivot($kerjasama);
-
+    // Redirect dengan pesan sukses
     return redirect()->route('kerjasama.index')->with('success', 'Kerjasama updated successfully.');
 }
 
 
-    public function destroy(Kerjasama $kerjasama)
-    {
-        $kerjasama->delete();
-        return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
-    }
+
+public function destroy($id)
+{
+
+    $kerjasama = Kerjasama::findOrFail($id);
+    $kerjasama->delete();
+    $this->updateMitraSasaranPivot($kerjasama);
+    return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
+}
+
 
     public function kerjasama()
 {
@@ -212,51 +221,4 @@ private function updateMitraSasaranPivot(Kerjasama $kerjasama)
             ]
         );
     }
-  public function edit($id)
-  {
-      $kerjasama = Kerjasama::findOrFail($id);
-      $users = User::all();
-      $mitras = Mitra::all();
-      $kecamatans = Kecamatan::all();
-      $surveys = Survey::all();
-      $subsurvey1s = Subsurvey1::all();
-      $subsurvey2s = Subsurvey2::all();
-      $jenis = Jenis::all();
-
-      return view('kerjasama.edit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
-  }
-
-  public function update(Request $request, $id)
-  {
-      $kerjasama = Kerjasama::findOrFail($id); // Load model berdasarkan ID
-
-      // Lakukan validasi data
-      $data = $request->validate([
-          'user_id' => 'required|exists:users,id',
-          'mitra_id' => 'required|exists:mitras,id',
-          'kecamatan_id' => 'required|exists:kecamatans,id',
-          'survey_id' => 'required|exists:surveys,id',
-          'subsurvey1_id' => 'nullable|exists:subsurvey1s,id',
-          'subsurvey2_id' => 'nullable|exists:subsurvey2s,id',
-          'jenis_id' => 'required|exists:jenis,id',
-          'date' => 'required|date',
-          'honor' => 'required|integer',
-          'bulan' => 'required|string|in:bulan,triwulan',
-      ]);
-
-      // Update model dengan data yang divalidasi
-      $kerjasama->update($data);
-
-      // Redirect dengan pesan sukses
-      return redirect()->route('kerjasama.index')->with('success', 'Kerjasama updated successfully.');
-  }
-
-  public function destroy($id)
-  {
-
-      $kerjasama = Kerjasama::findOrFail($id);
-      $kerjasama->delete();
-
-      return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
-  }
 }

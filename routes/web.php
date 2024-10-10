@@ -55,7 +55,7 @@ Route::prefix('kerjasama')->group(function () {
     Route::post('/', [KerjasamaController::class, 'store'])->name('kerjasama.store'); // Menyimpan kerjasama baru
     Route::get('/{id}/edit', [KerjasamaController::class, 'edit'])->name('kerjasama.edit'); // Form untuk edit kerjasama
     Route::put('/{id}', [KerjasamaController::class, 'update'])->name('kerjasama.update'); // Memperbarui kerjasama
-    Route::delete('/kerjasama/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
+    Route::delete('/kerjasama/kerjasama/{id}', [KerjasamaController::class, 'destroy'])->name('kerjasama.destroy'); // Menghapus kerjasama
 });
 
 Route::prefix('subsurvey2s')->group(function () {
