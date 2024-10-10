@@ -112,7 +112,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Survey</label>
-                                <select name="survey_id" class="form-select" required>
+                                <select name="survey_id" id="survey_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Survey</option>
                                     @foreach($surveys as $survey)
                                         <option value="{{ $survey->id }}">{{ $survey->nama_survey }}</option>
                                     @endforeach
@@ -120,17 +121,19 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Subsurvey 1</label>
-                                <select name="subsurvey1_id" class="form-select" required>
+                                <select name="subsurvey1_id" id="subsurvey1_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Subsurvey 1</option>
                                     @foreach($subsurvey1s as $subsurvey1)
-                                        <option value="{{ $subsurvey1->id }}">{{ $subsurvey1->nama_subsurvey }}</option>
+                                        <option value="{{ $subsurvey1->id }}" data-survey="{{ $subsurvey1->id_survey }}">{{ $subsurvey1->nama_subsurvey }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Subsurvey 2</label>
-                                <select name="subsurvey2_id" class="form-select" required>
+                                <select name="subsurvey2_id" id="subsurvey2_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Subsurvey 2</option>
                                     @foreach($subsurvey2s as $subsurvey2)
-                                        <option value="{{ $subsurvey2->id }}">{{ $subsurvey2->nama_subsurvey2s }}</option>
+                                        <option value="{{ $subsurvey2->id }}" data-subsurvey1="{{ $subsurvey2->id_subsurvey1 }}">{{ $subsurvey2->nama_subsurvey2s }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -211,6 +214,40 @@
     }
 </script>
 
+<script>
+$(document).ready(function() {
+    // Filter subsurvey1 based on survey
+    $('#survey_id').on('change', function() {
+        var surveyId = $(this).val();
+
+        // Reset subsurvey1 and subsurvey2
+        $('#subsurvey1_id').val('').find('option').hide().filter('[value=""]').show();
+        $('#subsurvey2_id').val('').find('option').hide().filter('[value=""]').show();
+
+        // Show relevant subsurvey1 options
+        $('#subsurvey1_id option').each(function() {
+            if ($(this).data('survey') == surveyId) {
+                $(this).show();
+            }
+        });
+    });
+
+    // Filter subsurvey2 based on subsurvey1
+    $('#subsurvey1_id').on('change', function() {
+        var subsurvey1Id = $(this).val();
+
+        // Reset and hide all options in subsurvey2
+        $('#subsurvey2_id').val('').find('option').hide().filter('[value=""]').show();
+
+        // Show relevant subsurvey2 options
+        $('#subsurvey2_id option').each(function() {
+            if ($(this).data('subsurvey1') == subsurvey1Id) {
+                $(this).show();
+            }
+        });
+    });
+});
+</script>
 @endsection
 
 @if(session('alert'))
