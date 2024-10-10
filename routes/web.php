@@ -21,8 +21,7 @@ Route::get('/mykerjasama', [KerjasamaController::class, 'kerjasama'])->name('myk
 Route::get('/kerjasama/pivot-report', [KerjasamaController::class, 'pivotReport','pivotMonthlyReport'])->name('kerjasama.pivot_report');
 Route::get('/kerjatidaktepat', [KerjasamaController::class, 'index2'])->name('kerjasama.index2');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('mitra', MitraController::class);
-Route::prefix('mitra')->group(function () {
+Route::prefix('admin/mitra')->group(function () {
     Route::get('/', [MitraController::class, 'index'])->name('mitra.index'); // Menampilkan daftar mitra
     Route::get('/create', [MitraController::class, 'create'])->name('mitra.create'); // Form untuk tambah mitra baru
     Route::post('/', [MitraController::class, 'store'])->name('mitra.store'); // Menyimpan mitra baru
@@ -97,3 +96,17 @@ Route::prefix('admin/jenis')->group(function () {
     Route::delete('/{id}', [JenisController::class, 'destroy'])->name('jenis.destroy');
 
 });
+
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/kerjasamaku', function () {
+    return view('kerjasamaku');
+});
+
+
+Route::get('/kerjasamaku', [KerjasamaController::class, 'index3'])->name('kerjasamaku.index');
+Route::get('/mitra', [MitraController::class, 'index2'])->name('mitra.index');
