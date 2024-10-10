@@ -222,5 +222,3 @@ private function updateMitraSasaranPivot(Kerjasama $kerjasama)
         );
     }
 }
-
-

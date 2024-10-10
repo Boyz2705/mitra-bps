@@ -1,6 +1,6 @@
 <!-- resources/views/kerjasama/edit.blade.php -->
-@extends('admin.admin_assets')
 
+@extends('admin.admin_assets')
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Edit Kerjasama</h1>
@@ -17,6 +17,7 @@
         @csrf
         @method('PUT')
 
+        <!-- Pilihan User -->
         <div class="form-group mb-3">
             <label for="user_id">User</label>
             <select name="user_id" id="user_id" class="form-select" required>
@@ -28,6 +29,7 @@
             </select>
         </div>
 
+        <!-- Pilihan Mitra -->
         <div class="form-group mb-3">
             <label for="mitra_id">Mitra</label>
             <select name="mitra_id" id="mitra_id" class="form-select" required>
@@ -39,6 +41,7 @@
             </select>
         </div>
 
+        <!-- Pilihan Kecamatan -->
         <div class="form-group mb-3">
             <label for="kecamatan_id">Kecamatan</label>
             <select name="kecamatan_id" id="kecamatan_id" class="form-select" required>
@@ -50,6 +53,7 @@
             </select>
         </div>
 
+        <!-- Pilihan Survey -->
         <div class="form-group mb-3">
             <label for="survey_id">Survey</label>
             <select name="survey_id" id="survey_id" class="form-select" required>
@@ -61,6 +65,7 @@
             </select>
         </div>
 
+        <!-- Pilihan Subsurvey 1 -->
         <div class="form-group mb-3">
             <label for="subsurvey1_id">Subsurvey 1</label>
             <select name="subsurvey1_id" id="subsurvey1_id" class="form-select">
@@ -72,6 +77,7 @@
             </select>
         </div>
 
+        <!-- Pilihan Subsurvey 2 -->
         <div class="form-group mb-3">
             <label for="subsurvey2_id">Subsurvey 2</label>
             <select name="subsurvey2_id" id="subsurvey2_id" class="form-select">
@@ -83,35 +89,39 @@
             </select>
         </div>
 
+
+        <!-- Pilihan Jenis -->
         <div class="form-group mb-3">
             <label for="jenis_id">Jenis</label>
             <select name="jenis_id" id="jenis_id" class="form-select" required>
                 @foreach($jenis as $j)
-                    <option value="{{ $j->id }}" {{ $kerjasama->j_id == $j->id ? 'selected' : '' }}>
+                    <option value="{{ $j->id }}" {{ $kerjasama->jenis_id == $j->id ? 'selected' : '' }}>
                         {{ $j->nama_jenis }}
                     </option>
                 @endforeach
             </select>
         </div>
 
+        <!-- Date -->
         <div class="form-group mb-3">
             <label for="date">Date</label>
             <input type="date" name="date" id="date" class="form-control" value="{{ $kerjasama->date }}" required>
         </div>
 
+        <!-- Honor -->
         <div class="form-group mb-3">
             <label for="honor">Honor</label>
             <input type="number" name="honor" id="honor" class="form-control" value="{{ $kerjasama->honor }}" required>
         </div>
 
+        <!-- Pilihan Bulan -->
         <select name="bulan" id="bulan" class="form-select" required>
             <option value="bulan" {{ $kerjasama->bulan == 'bulan' ? 'selected' : '' }}>Bulan</option>
             <option value="triwulan" {{ $kerjasama->bulan == 'triwulan' ? 'selected' : '' }}>Triwulan</option>
         </select>
 
-
-
         <button type="submit" class="btn btn-primary">Perbarui Kerjasama</button>
     </form>
+
 </div>
 @endsection
