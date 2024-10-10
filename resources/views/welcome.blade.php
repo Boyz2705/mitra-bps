@@ -31,11 +31,22 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+					<li class="nav-item"><a href="{{ url('/') }}" class="nav-link"><span>Home</span></a></li>
 					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-					<li class="nav-item"><a href="#skills-section" class="nav-link"><span>Kerjasamaku</span></a></li>
-					<li class="nav-item"><a href="#blog-section" class="nav-link"><span>Mitra</span></a></li>
-					<li class="nav-item"><a href="#blog-section" class="nav-link"><span>Account</span></a></li>
+					<li class="nav-item"><a href="{{ url('/kerjasamaku') }}" class="nav-link"><span>Kerjasamaku</span></a></li>
+					<li class="nav-item"><a href="{{ url('/mitra') }}" class="nav-link"><span>Mitra</span></a></li>
+
+					<li class="nav-item">
+						@if (Auth::check())
+							<a href="#user-section" class="nav-link">
+								<span><b>{{ Auth::user()->name }}</b></span>
+							</a>
+						@else
+							<a href="{{ route('login') }}" class="nav-link">
+								<span>Login</span>
+							</a>
+						@endif
+					</li>
 				
 				</ul>
 			</div>
@@ -67,7 +78,7 @@
 				</div>
 			</div>
 
-			<div class="slider-item">
+			<div class="slider-item" style="margin-bottom: 200px;">
 				<div class="overlay"></div>
 				<div class="container-fluid px-md-0">
 					<div class="row d-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
@@ -90,6 +101,10 @@
 		</div>
 	</section>
 
+	<div style="text-align: center;">
+		<button  href="{{ url('/kerjasamaku') }}" class="btn btn-primary">Mulai Kerjasamaku</button>
+	</div>
+	
 	
 	<section class="ftco-about ftco-section ftco-no-pt ftco-no-pb" id="about-section" style="margin-top: 30px;">
 		<div class="container">
@@ -130,7 +145,7 @@
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
 						<h2 class="ftco-heading-2">Mitraku BPS</h2>
-						<p>"We Care Our Teams"</p>
+						<p>"Mitraku merupakan inisiatif dari BPS Kota Surabaya, diciptakan untuk mengawasi dan mengelola kemitraan secara efisien. Situs ini menyediakan antarmuka yang terorganisir untuk mengawasi kegiatan mitra, menjamin komunikasi yang baik dan kolaborasi antara semua pihak terkait, serta meningkatkan transparansi dan efisiensi dalam layanan statistik."</p>
 						<p><a href="#" class="btn btn-primary">Learn more</a></p>
 					</div>
 				</div>

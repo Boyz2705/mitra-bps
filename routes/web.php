@@ -128,3 +128,17 @@ Route::prefix('admin/jenis')->group(function () {
     Route::delete('/{id}', [JenisController::class, 'destroy'])->name('jenis.destroy');
 
 });
+
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/kerjasamaku', function () {
+    return view('kerjasamaku');
+});
+
+Route::get('/mitra', function () {
+    return view('mitra');
+});
