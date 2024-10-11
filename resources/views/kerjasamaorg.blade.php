@@ -1,10 +1,10 @@
 <!-- resources/views/kerjasamaku.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Kerjasamaku')
+@section('title', 'Semua Kerjasama')
 
 @section('content')
-    <h2 class="text-center mb-4"><strong>Kerjasamaku</strong></h2>
+    <h2 class="text-center mb-4"><strong>Semua Kerjasama</strong></h2>
     <div class="border-custom mb-4"></div>
 
     @if(session('success'))
@@ -23,6 +23,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
+                        <th>User</th>
                         <th>Mitra</th>
                         <th>Kecamatan</th>
                         <th>Survey</th>
@@ -38,6 +39,7 @@
                     @foreach($kerjasama as $key => $k)
                         <tr>
                             <td><strong>{{ $key + 1 }}</strong></td>
+                            <td>{{ $k->user->name }}</td>
                             <td>{{ $k->mitra->nama_mitra }}</td>
                             <td>{{ $k->kecamatan->nama_kecamatan }}</td>
                             <td>{{ $k->survey->nama_survey }}</td>

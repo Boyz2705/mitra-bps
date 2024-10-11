@@ -34,6 +34,41 @@ class KerjasamaController extends Controller
 
 public function index3()
 {
+    // Ambil user yang sedang login
+    $userId = Auth::id();
+
+    // Filter kerjasama berdasarkan user yang login
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','subsurvey1','subsurvey2'])
+        ->where('user_id', $userId) // Filter berdasarkan user_id
+        ->orderBy('date', 'desc')
+        ->get();
+
+    // Ambil data terkait lainnya
+    $mitras = Mitra::all();
+    $kecamatans = Kecamatan::all();
+    $surveys = Survey::all();
+    $subsurvey1s = Subsurvey1::all(); // Subsurvey1
+    $subsurvey2s = Subsurvey2::all(); // Subsurvey2
+    $jenis = Jenis::all(); // Jenis
+
+    return view('kerjasamaku', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+}
+
+public function index5()
+{
+    $mitras = Mitra::all();
+    $kecamatans = Kecamatan::all();
+    $surveys = Survey::all();
+    $subsurvey1s = Subsurvey1::all();
+    $subsurvey2s = Subsurvey2::all();
+    $jenis = Jenis::all();
+
+    return view('welcome', compact('mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+}
+
+
+public function index4()
+{
     $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','subsurvey1','subsurvey2'])->orderBy('date', 'desc')->get();
     $users = User::all();
     $mitras = Mitra::all();
@@ -43,7 +78,7 @@ public function index3()
     $subsurvey2s = Subsurvey2::all(); // Subsurvey2
     $jenis = Jenis::all(); // Jenis
 
-    return view('kerjasamaku', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('kerjasamaorg', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 // Example: KerjasamaController.php
@@ -123,6 +158,47 @@ public function index2()
 
         return redirect()->route('kerjasama.index')->with('status', 'Kerjasama created successfully.');
     }
+
+    public function storeuser(Request $request)
+{
+    $data = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'mitra_id' => 'required|exists:mitras,id',
+        'kecamatan_id' => 'required|exists:kecamatans,id',
+        'survey_id' => 'required|exists:surveys,id',
+        'subsurvey1_id' => 'required|exists:subsurvey1s,id',
+        'subsurvey2_id' => 'required|exists:subsurvey2s,id',
+        'jenis_id' => 'required|exists:jenis,id',
+        'date' => 'required|date',
+        'honor' => 'required|integer',
+        'bulan' => 'required|string',
+    ]);
+
+    // Check if mitra is already used in the current month
+    $currentMonth = date('Y-m');
+    $existingKerjasama = Kerjasama::where('mitra_id', $data['mitra_id'])
+        ->whereRaw("DATE_FORMAT(date, '%Y-%m') = ?", [$currentMonth])
+        ->first();
+
+    if ($existingKerjasama) {
+        $user = User::find($existingKerjasama->user_id);
+        return response()->json([
+            'warning' => true,
+            'message' => "Mitra sudah dipakai pada bulan ini oleh {$user->name}. Apakah Anda ingin melanjutkan?",
+            'data' => $data
+        ]);
+    }
+
+    // If mitra is not used or user confirms, create the kerjasama
+    $kerjasama = Kerjasama::create($data);
+    $this->updateMitraSasaranPivot($kerjasama);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Kerjasama created successfully.',
+        'redirect' => route('kerjasama.index')
+    ]);
+}
 
 
     public function show(Kerjasama $kerjasama)
