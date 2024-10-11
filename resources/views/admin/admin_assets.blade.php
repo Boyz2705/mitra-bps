@@ -24,7 +24,7 @@
 </head>
 @if (Route::has('login'))
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #203826;">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="/adm"><img class="img-fluid me-3" src="{{ URL::to('/assets/Mitraku.png') }}" style="width: 100px">Admin</a>
         <!-- Sidebar Toggle-->
@@ -53,40 +53,53 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" style="background-color: #082a11;" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
                         <a class="nav-link" href="/kerjatidaktepat">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <a class="nav-link" href="/kerjasama/pivot-report">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-table"></i></div>
                             Pivot Report
                         </a>
                         <a class="nav-link" href="/kerjatidaktepat">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-brands fa-stack-overflow"></i></div>
                             Kerjasama Tidak Tepat
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Manage Tables
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        <a class="nav-link" href="/kerjasama">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                            Kerjasama
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/kerjasama">Kerjasama </a>
-                                <a class="nav-link" href="/mitra">Mitra </a>
-                                <a class="nav-link" href="/surveys">Surveys</a>
-                                <a class="nav-link" href="/subsurvey1s">SubSurvey1</a>
-                                <a class="nav-link" href="/subsurvey2s">SubSurvey2s</a>
-                                <a class="nav-link" href="{{ route('user.index') }}">User</a>
-                                <a class="nav-link" href="{{ route('kecamatan.index') }}">Kecamatan</a>
-                                <a class="nav-link" href="{{ route('jenis.index') }}">Jenis</a>
-                            </nav>
-                        </div>
+                        <a class="nav-link" href="/mitra">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-handshake"></i></div>
+                            Mitra
+                        </a>
+                        <a class="nav-link" href="/surveys">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                            Survey
+                        </a>
+                        <a class="nav-link" href="/subsurvey1s">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                            Sub Survey 1
+                        </a>
+                        <a class="nav-link" href="/subsurvey2s">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                            Sub Survey 2
+                        </a>
+                        <a class="nav-link" href="{{ route('user.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                            User
+                        </a>
+                        <a class="nav-link" href="{{ route('kecamatan.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            Kecamatan
+                        </a>
+                        <a class="nav-link" href="{{ route('jenis.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-hurricane"></i></div>
+                            Jenis
+                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
