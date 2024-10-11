@@ -4,6 +4,7 @@
     <title>@yield('title', 'Mitraku')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -39,11 +40,14 @@
                     <li class="nav-item"><a href="{{ url('/') }}#about-section" class="nav-link"><span>About</span></a></li>
                     <li class="nav-item"><a href="{{ url('/kerjasamaku') }}" class="nav-link"><span>Kerjasamaku</span></a></li>
                     <li class="nav-item"><a href="{{ url('/mitraku') }}" class="nav-link"><span>Mitra</span></a></li>
+                    <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link"><span>Login</span></a></li>
                     <li class="nav-item dropdown">
-                        @if (Auth::check())
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span><b>{{ Auth::user()->name }}</b></span>
+                        @auth
+                            <!-- Tampilkan nama user dengan gaya yang sesuai -->
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
                             </a>
+
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -52,14 +56,17 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+
                         @else
-                            <a href="{{ route('login') }}" class="nav-link">
+                            <!-- Tampilkan link "Login" dengan styling sesuai dengan navbar -->
+                            <a href="{{ route('login') }}" class="nav-link text-success fw-bold">
                                 <span>Login</span>
                             </a>
-                        @endif
+                        @endauth
                     </li>
                 </ul>
             </div>

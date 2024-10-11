@@ -41,9 +41,11 @@
                     <li class="nav-item"><a href="{{ url('/mitraku') }}" class="nav-link"><span>Mitra</span></a></li>
                     <li class="nav-item dropdown">
                         @auth
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="fw-bold">{{ Auth::user()->name }}</span>
+                            <!-- Tampilkan nama user dengan gaya yang sesuai -->
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
                             </a>
+
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -52,11 +54,14 @@
                                     </a>
                                 </li>
                             </ul>
+
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+
                         @else
-                            <a href="{{ route('login') }}" class="nav-link">
+                            <!-- Tampilkan link "Login" dengan styling sesuai dengan navbar -->
+                            <a href="{{ route('login') }}" class="nav-link text-success fw-bold">
                                 <span>Login</span>
                             </a>
                         @endauth

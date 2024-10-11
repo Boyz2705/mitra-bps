@@ -42,12 +42,13 @@
 					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
 					<li class="nav-item"><a href="{{ url('/kerjasamaku') }}" class="nav-link"><span>Kerjasamaku</span></a></li>
 					<li class="nav-item"><a href="{{ url('/mitraku') }}" class="nav-link"><span>Mitra</span></a></li>
-
-					<li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         @auth
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="fw-bold">{{ Auth::user()->name }}</span>
+                            <!-- Tampilkan nama user dengan gaya yang sesuai -->
+                            <a class="nav-link dropdown-toggle fw-bold" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
                             </a>
+
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -56,15 +57,19 @@
                                     </a>
                                 </li>
                             </ul>
+
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+
                         @else
-                            <a href="{{ route('login') }}" class="nav-link">
+                            <!-- Tampilkan link "Login" dengan styling sesuai dengan navbar -->
+                            <a href="{{ route('login') }}" class="nav-link text-success fw-bold">
                                 <span>Login</span>
                             </a>
                         @endauth
                     </li>
+
 				</ul>
 			</div>
 		</div>
@@ -121,13 +126,13 @@
 
 		</div>
 	</section>
-	<section class="ftco-about ftco-section ftco-no-pt ftco-no-pb" id="about-section" style="margin-top: 30px;">
+	<section class="ftco-about ftco-section ftco-no-pt ftco-no-pb" id="about-section" style="margin-top: 70px; , margin-bottom: 70px " >
 		<div class="container">
 			<div class="row d-flex no-gutters">
 				<div class="col-md-6 col-lg-5 d-flex">
 					<div class="img-about img d-flex align-items-stretch">
 						<div class="overlay"></div>
-						<div class="img d-flex align-self-stretch align-items-center" style="background-image: url('assets/MITRA1.jpg');">
+						<div class="img d-flex align-self-stretch align-items-center" style="background-image: url('assets/MITRA1.png');">
 						</div>
 					</div>
 				</div>
@@ -146,9 +151,9 @@
 		</div>
 	</section>
 
-	<footer class="ftco-footer ftco-section">
+	<footer class="ftco-footer ftco-section" style="margin-top: 70px">
 		<div class="container">
-			<div class="row mb-5">
+			<div class="row mb-1">
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
 						<h2 class="ftco-heading-2">Mitraku BPS</h2>

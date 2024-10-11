@@ -186,13 +186,37 @@ public function index2()
         'bulan' => 'required|string',
     ]);
 
+    // Ambil bulan dari kolom date
+    $bulanDariDate = date('m', strtotime($data['date']));
+
+    // Cek apakah mitra sudah dipakai pada bulan ini
+    $existingKerjasama = Kerjasama::where('mitra_id', $data['mitra_id'])
+        ->whereMonth('date', $bulanDariDate)
+        ->first();
+
+    if ($existingKerjasama && !$request->has('confirm')) {
+        // Jika mitra sudah dipakai dan belum ada konfirmasi, kirim warning
+        $existingUser = User::find($existingKerjasama->user_id);
+        return response()->json([
+            'warning' => true,
+            'message' => "Mitra sudah dipakai oleh user {$existingUser->name} pada bulan ini. Apakah Anda ingin melanjutkan?",
+        ]);
+    }
+
+    // Jika tidak ada warning atau user memilih untuk melanjutkan
     $kerjasama = Kerjasama::create($data);
 
+    // Update Pivot Table
     $this->updateMitraSasaranPivot($kerjasama);
 
-    // Kembali ke halaman sebelumnya dengan pesan sukses
-    return redirect()->route('kerjasamaku.index')->with('success', 'Kerjasama berhasil disimpan!');
+    // Kirim respons JSON untuk permintaan AJAX
+    return response()->json([
+        'success' => true,
+        'message' => 'Kerjasama berhasil disimpan!'
+    ]);
 }
+
+
 
 
     public function show(Kerjasama $kerjasama)

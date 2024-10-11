@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-2">
     @auth
         <h2 class="text-center mb-4"><strong>Mulai Kerjasama</strong></h2>
         <form id="kerjasamaForm" method="POST" action="{{ route('mulaikerjasama.store') }}">
@@ -121,10 +121,87 @@
 <div class="mb-4"></div>
 
 <script>
-    document.getElementById('kerjasamaForm').addEventListener('submit', function() {
+    document.getElementById('kerjasamaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
         const formattedHonor = document.getElementById('formatted_honor').value;
-        document.getElementById('honor').value = formattedHonor; // Mengisi nilai ke input hidden
+        document.getElementById('honor').value = formattedHonor.replace(/\D/g, '');
+
+        let formData = new FormData(this);
+
+        fetch("{{ route('mulaikerjasama.store') }}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.warning) {
+                if (confirm(data.message)) {
+                    // User memilih untuk melanjutkan
+                    formData.append('confirm', 'true');
+                    return fetch("{{ route('mulaikerjasama.store') }}", {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json'
+                        }
+                    });
+                } else {
+                    // User memilih untuk tidak melanjutkan
+                    return Promise.reject('User cancelled');
+                }
+            } else {
+                // Tidak ada warning, proses normal
+                return Promise.resolve(data);
+            }
+        })
+        .then(data => {
+            if (data.success) {
+                // Tampilkan notifikasi atau pesan sukses di halaman
+                let successMessage = document.createElement('div');
+                successMessage.className = 'alert alert-success';
+                successMessage.textContent = data.message;
+                document.getElementById('kerjasamaForm').after(successMessage);
+
+                // Redirect otomatis setelah 1 detik
+                setTimeout(function() {
+                    window.location.href = "{{ route('kerjasamaku.index') }}";
+                }, 1000);
+            } else {
+                // Tangani jika data.success tidak ada
+                let errorMessage = document.createElement('div');
+                errorMessage.className = 'alert alert-danger';
+                errorMessage.textContent = data.message || 'Terjadi kesalahan.';
+                document.getElementById('kerjasamaForm').after(errorMessage);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 </script>
 
+
+<script>
+document.getElementById('formatted_honor').addEventListener('input', function(e) {
+    let value = e.target.value;
+
+    // Hapus semua karakter non-digit (kecuali angka)
+    value = value.replace(/\D/g, '');
+
+    // Tambahkan titik sebagai pemisah ribuan
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    // Tampilkan hasil terformat ke dalam input 'formatted_honor'
+    e.target.value = value;
+
+    // Simpan nilai asli (tanpa titik) ke dalam input tersembunyi 'honor'
+    document.getElementById('honor').value = value.replace(/\./g, '');
+});
+</script>
 @endsection
