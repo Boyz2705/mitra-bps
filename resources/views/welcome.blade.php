@@ -79,7 +79,7 @@
                                     <h1 class="mb-4 mt-3">Mitraku<span> <span>BPS</span></h1>
                                     <h5> <b> Website Kemitraan </b></h5>
                                     <b class="subheading">BPS Kota Surabaya</b>
-                                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKerjasamaModal">Mulai Kerjasama</a>
+                                    <a href="/mulaikerjasama" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKerjasamaModal">Mulai Kerjasama</a>
             					    <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
                                 </div>
                             </div>
@@ -102,8 +102,8 @@
 								<span class="subheading">Quality Control &amp; Management Website</span>
 								<h1 class="mb-4 mt-3">We Cares <span>Our Team</span></h1>
                                 <b class="subheading">BPS Kota Surabaya</b>
-								<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKerjasamaModal">Mulai Kerjasama</a>
-            					<a href="#" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
+								<a href="/mulaikerjasama" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKerjasamaModal">Mulai Kerjasama</a>
+            					<a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
 							</div>
 						</div>
 					</div>
@@ -174,114 +174,7 @@
 		</div>
 	</footer>
 
-    <!-- Modal Tambah Kerjasama -->
-    <div class="modal fade" id="addKerjasamaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                @auth
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form Tambah Kerjasama</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-4">
-                        <form method="POST" class="row g-3" action="{{ route('kerjasama.storeuser') }}">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label">User</label>
-                                    <select name="user_id" class="form-select" required>
-                                        <option value="{{ Auth::user()->id }}" readonly>{{ Auth::user()->name }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <select name="email" class="form-select" readonly>
-                                        <option value="{{ Auth::user()->email }}" readonly>{{ Auth::user()->email }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Mitra</label>
-                                    <select name="mitra_id" class="form-select" required>
-                                        @foreach($mitras as $mitra)
-                                            <option value="{{ $mitra->id }}">{{ $mitra->nama_mitra }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Kecamatan</label>
-                                    <select name="kecamatan_id" class="form-select" required>
-                                        @foreach($kecamatans as $kecamatan)
-                                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama_kecamatan }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Survey</label>
-                                    <select name="survey_id" id="survey_id" class="form-select" required>
-                                        <option value="" disabled selected>Pilih Survey</option>
-                                        @foreach($surveys as $survey)
-                                            <option value="{{ $survey->id }}">{{ $survey->nama_survey }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Subsurvey 1</label>
-                                    <select name="subsurvey1_id" id="subsurvey1_id" class="form-select" required>
-                                        <option value="" disabled selected>Pilih Subsurvey 1</option>
-                                        @foreach($subsurvey1s as $subsurvey1)
-                                            <option value="{{ $subsurvey1->id }}" data-survey="{{ $subsurvey1->id_survey }}">{{ $subsurvey1->nama_subsurvey }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Subsurvey 2</label>
-                                    <select name="subsurvey2_id" id="subsurvey2_id" class="form-select" required>
-                                        <option value="" disabled selected>Pilih Subsurvey 2</option>
-                                        @foreach($subsurvey2s as $subsurvey2)
-                                            <option value="{{ $subsurvey2->id }}" data-subsurvey1="{{ $subsurvey2->id_subsurvey1 }}">{{ $subsurvey2->nama_subsurvey2s }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Jenis</label>
-                                    <select name="jenis_id" class="form-select" required>
-                                        @foreach($jenis as $j)
-                                            <option value="{{ $j->id }}">{{ $j->nama_jenis }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Tanggal</label>
-                                    <input name="date" type="date" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Honor</label>
-                                    <input id="formatted_honor" type="text" class="form-control" required>
-                                    <input id="honor" name="honor" type="hidden">
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Periode</label>
-                                    <select name="bulan" class="form-select" required>
-                                        <option value="Bulan">Bulan</option>
-                                        <option value="Triwulan">Triwulan</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </form>
-                    </div>
-                @else
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Anda Harus Login Terlebih Dahulu</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-4">
-                        <a href="{{ route('login') }}"><button class="btn btn-success">Login</button></a>
-                    </div>
-                @endauth
-            </div>
-        </div>
-    </div>
+
 
 	<!-- loader -->
 	{{-- <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> --}}

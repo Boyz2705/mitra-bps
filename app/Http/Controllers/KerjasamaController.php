@@ -65,6 +65,17 @@ public function index5()
 
     return view('welcome', compact('mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
+public function index6()
+{
+    $mitras = Mitra::all();
+    $kecamatans = Kecamatan::all();
+    $surveys = Survey::all();
+    $subsurvey1s = Subsurvey1::all();
+    $subsurvey2s = Subsurvey2::all();
+    $jenis = Jenis::all();
+
+    return view('mulaikerjasama', compact('mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+}
 
 
 public function index4()
@@ -161,6 +172,7 @@ public function index2()
 
     public function storeuser(Request $request)
 {
+    // Validasi input
     $data = $request->validate([
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
@@ -174,30 +186,12 @@ public function index2()
         'bulan' => 'required|string',
     ]);
 
-    // Check if mitra is already used in the current month
-    $currentMonth = date('Y-m');
-    $existingKerjasama = Kerjasama::where('mitra_id', $data['mitra_id'])
-        ->whereRaw("DATE_FORMAT(date, '%Y-%m') = ?", [$currentMonth])
-        ->first();
-
-    if ($existingKerjasama) {
-        $user = User::find($existingKerjasama->user_id);
-        return response()->json([
-            'warning' => true,
-            'message' => "Mitra sudah dipakai pada bulan ini oleh {$user->name}. Apakah Anda ingin melanjutkan?",
-            'data' => $data
-        ]);
-    }
-
-    // If mitra is not used or user confirms, create the kerjasama
     $kerjasama = Kerjasama::create($data);
+
     $this->updateMitraSasaranPivot($kerjasama);
 
-    return response()->json([
-        'success' => true,
-        'message' => 'Kerjasama created successfully.',
-        'redirect' => route('kerjasama.index')
-    ]);
+    // Kembali ke halaman sebelumnya dengan pesan sukses
+    return redirect()->route('kerjasamaku.index')->with('success', 'Kerjasama berhasil disimpan!');
 }
 
 

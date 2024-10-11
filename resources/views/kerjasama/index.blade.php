@@ -248,10 +248,11 @@ $(document).ready(function() {
     });
 });
 </script>
-@endsection
+
 
 @if(session('alert'))
     <script>
         alert("{{ session('alert') }}");
     </script>
 @endif
+@endsection
