@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Mitraku</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <title>Mitraku</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="css3/animate.css">
+        <!-- CSS Libraries -->
+        <link rel="stylesheet" href="css3/animate.css">
+        <link rel="stylesheet" href="css3/owl.carousel.min.css">
+        <link rel="stylesheet" href="css3/owl.theme.default.min.css">
+        <link rel="stylesheet" href="css3/magnific-popup.css">
+        <link rel="icon" type="image/x-icon" href="./favicon.png" />
 
-	<link rel="stylesheet" href="css3/owl.carousel.min.css">
-	<link rel="stylesheet" href="css3/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css3/magnific-popup.css">
-	<link rel="icon" type="image/x-icon" href="./favicon.png" />
+        <link rel="stylesheet" href="css3/flaticon.css">
+        <link rel="stylesheet" href="css3/style.css">
 
-	<link rel="stylesheet" href="css3/flaticon.css">
-	<link rel="stylesheet" href="css3/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
-</head>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+
+
+
+    </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -38,7 +45,7 @@
 
 					<li class="nav-item dropdown">
                         @if (Auth::check())
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle custom-name" style="color: white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span><b>{{ Auth::user()->name }}</b></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -64,51 +71,54 @@
 	</nav>
 	<section id="home-section" class="hero">
 		<div class="home-slider owl-carousel">
-			<div class="slider-item">
-				<div class="overlay"></div>
-				<div class="container-fluid px-md-0">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						<div class="one-third order-md-last img" style="background-image:url(images/1.png);">
-							<div class="overlay"></div>
-							<div class="overlay-1"></div>
-						</div>
-						<div class="one-forth d-flex  align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-							<div class="text" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="slider-item">
+                <div class="overlay"></div>
+                <div class="container-fluid px-md-0">
+                    <div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
+                        <!-- Background image fixed -->
+                        <div class="one-third order-md-last img" style="background-image: url('{{ asset('assets/bg3.png') }}');">
+                            <div class="overlay"></div>
+                            <div class="overlay-1"></div>
+                        </div>
+                        <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                            <div class="text" style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <span class="subheading">Selamat Datang di</span>
                                     <h1 class="mb-4 mt-3">Mitraku<span> <span>BPS</span></h1>
                                     <h5> <b> Website Kemitraan </b></h5>
                                     <b class="subheading">BPS Kota Surabaya</b>
-                                    <a href="/mulaikerjasama" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKerjasamaModal">Mulai Kerjasama</a>
-            					    <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
+                                    <a href="/mulaikerjasama" class="btn btn-primary" style="background-color:  #175e69">Mulai Kerjasama</a>
+                                    <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
                                 </div>
                             </div>
-						</div>
-					</div>
-				</div>
-			</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-
-			<div class="slider-item" style="margin-bottom: 200px;">
-				<div class="overlay"></div>
-				<div class="container-fluid px-md-0">
-					<div class="row d-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						<div class="one-third order-md-last img" style="background-image:url(images/2.png);">
-							<div class="overlay"></div>
-							<div class="overlay-1"></div>
-						</div>
-						<div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-							<div class="text">
-								<span class="subheading">Quality Control &amp; Management Website</span>
-								<h1 class="mb-4 mt-3">We Cares <span>Our Team</span></h1>
+            <div class="slider-item" style="margin-bottom: 200px;">
+                <div class="overlay"></div>
+                <div class="container-fluid px-md-0">
+                    <div class="row d-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
+                        <!-- Background image unchanged -->
+                        <div class="one-third order-md-last img" style="background-image: url('{{ asset('assets/bg2.png') }}');">
+                            <div class="overlay"></div>
+                            <div class="overlay-1"></div>
+                        </div>
+                        <div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                            <div class="text">
+                                <span class="subheading">Quality Control &amp; Management Website</span>
+                                <h1 class="mb-4 mt-3">We Cares <span>Our Team</span></h1>
                                 <b class="subheading">BPS Kota Surabaya</b>
-								<a href="/mulaikerjasama" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKerjasamaModal">Mulai Kerjasama</a>
-            					<a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                <a href="/mulaikerjasama" class="btn btn-primary" style="background-color:  #175e69" >Mulai Kerjasama</a>
+                                <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 		</div>
 	</section>
 	<section class="ftco-about ftco-section ftco-no-pt ftco-no-pb" id="about-section" style="margin-top: 30px;">
@@ -175,9 +185,6 @@
 	</footer>
 
 
-
-	<!-- loader -->
-	{{-- <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> --}}
 
 	<script src="js3/jquery.min.js"></script>
 	<script src="js3/jquery-migrate-3.0.1.min.js"></script>
