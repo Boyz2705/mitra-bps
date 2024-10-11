@@ -3,9 +3,9 @@
     * Copyright 2013-2022 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
     */
-    // 
+    //
 // Scripts
-// 
+//
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -24,3 +24,16 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    error: function(jqXHR) {
+        if (jqXHR.status === 401 || jqXHR.status === 419) {
+            alert('Session Anda telah kedaluwarsa. Silakan login kembali.');
+            window.location.href = '/login'; // Ubah sesuai rute login Anda
+        }
+    }
+});
+

@@ -40,7 +40,6 @@
                     <li class="nav-item"><a href="{{ url('/') }}#about-section" class="nav-link"><span>About</span></a></li>
                     <li class="nav-item"><a href="{{ url('/kerjasamaku') }}" class="nav-link"><span>Kerjasamaku</span></a></li>
                     <li class="nav-item"><a href="{{ url('/mitraku') }}" class="nav-link"><span>Mitra</span></a></li>
-                    <li class="nav-item"><a href="{{ url('/login') }}" class="nav-link"><span>Login</span></a></li>
                     <li class="nav-item dropdown">
                         @auth
                             <!-- Tampilkan nama user dengan gaya yang sesuai -->
@@ -97,5 +96,11 @@
         });
     });
 </script>
+@if (session('message'))
+    <div class="alert alert-warning">
+        {{ session('message') }}
+    </div>
+@endif
+
 </body>
 </html>
