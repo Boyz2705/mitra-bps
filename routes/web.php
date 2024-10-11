@@ -23,7 +23,11 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/kerjasamaorg', [KerjasamaController::class, 'index4'])->name('kerjasamaorg');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/mitraku', [MitraController::class, 'index2'])->name('mitra.index');
-    Route::post('/', [KerjasamaController::class, 'storeuser'])->name('kerjasama.storeusr');
+    Route::post('/', [KerjasamaController::class, 'storeuser'])->name('kerjasama.storeuser');
+    Route::prefix('mulaikerjasama')->group(function () {
+        Route::get('/', [KerjasamaController::class, 'index6'])->name('mulaikerjasama.index'); // Menampilkan daftar kerjasama; // Form untuk tambah kerjasama baru
+        Route::post('/', [KerjasamaController::class, 'storeuser'])->name('mulaikerjasama.store'); // Menyimpan kerjasama baru // Form untuk edit kerjasama
+    });
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -117,4 +121,5 @@ Route::get('/kerjasamaku', function () {
 
 
 Route::get('/kerjasamaku', [KerjasamaController::class, 'index3'])->name('kerjasamaku.index');
+
 
