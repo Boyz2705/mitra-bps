@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('title', 'Form Tambah Kerjasama')
 
@@ -21,7 +21,8 @@
                 <tr>
                     <th>Mitra</th>
                     <td>
-                        <select name="mitra_id" class="form-select" required>
+                        <select name="mitra_id" class="form-select select2" required>
+                            <option value="">Select Mitra</option>
                             @foreach($mitras as $mitra)
                                 <option value="{{ $mitra->id }}">{{ $mitra->nama_mitra }}</option>
                             @endforeach
@@ -31,7 +32,8 @@
                 <tr>
                     <th>Kecamatan</th>
                     <td>
-                        <select name="kecamatan_id" class="form-select" required>
+                        <select name="kecamatan_id" class="form-select select2" required>
+                            <option value="">Select Kecamatan</option>
                             @foreach($kecamatans as $kecamatan)
                                 <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama_kecamatan }}</option>
                             @endforeach

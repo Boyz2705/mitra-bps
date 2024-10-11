@@ -40,9 +40,9 @@
                     <li class="nav-item"><a href="{{ url('/kerjasamaku') }}" class="nav-link"><span>Kerjasamaku</span></a></li>
                     <li class="nav-item"><a href="{{ url('/mitraku') }}" class="nav-link"><span>Mitra</span></a></li>
                     <li class="nav-item dropdown">
-                        @auth
+                        @if (Auth::check())
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="fw-bold">{{ Auth::user()->name }}</span>
+                                <span><b>{{ Auth::user()->name }}</b></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
@@ -52,14 +52,14 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="nav-link">
                                 <span>Login</span>
                             </a>
-                        @endauth
+                        @endif
                     </li>
                 </ul>
             </div>
@@ -75,12 +75,20 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     @stack('scripts')
 
 
-
+<!-- JavaScript to initialize Select2 -->
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select an option",
+            allowClear: true
+        });
+    });
+</script>
 </body>
 </html>
