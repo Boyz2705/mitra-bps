@@ -56,10 +56,6 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" style="background-color: #082a11;" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="/kerjatidaktepat">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
                         <a class="nav-link" href="/kerjasama/pivot-report">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-table"></i></div>
                             Pivot Report
@@ -102,7 +98,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
+                <div class="sb-sidenav-footer" style="background-color:#082a11;">
                     <div class="small">Logged in as:</div>
                     {{ auth::user()->name }}
                 </div>
