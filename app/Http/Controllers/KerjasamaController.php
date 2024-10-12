@@ -186,13 +186,37 @@ public function index2()
         'bulan' => 'required|string',
     ]);
 
+    // Ambil bulan dari kolom date
+    $bulanDariDate = date('m', strtotime($data['date']));
+
+    // Cek apakah mitra sudah dipakai pada bulan ini
+    $existingKerjasama = Kerjasama::where('mitra_id', $data['mitra_id'])
+        ->whereMonth('date', $bulanDariDate)
+        ->first();
+
+    if ($existingKerjasama && !$request->has('confirm')) {
+        // Jika mitra sudah dipakai dan belum ada konfirmasi, kirim warning
+        $existingUser = User::find($existingKerjasama->user_id);
+        return response()->json([
+            'warning' => true,
+            'message' => "Mitra sudah dipakai oleh user {$existingUser->name} pada bulan ini. Apakah Anda ingin melanjutkan?",
+        ]);
+    }
+
+    // Jika tidak ada warning atau user memilih untuk melanjutkan
     $kerjasama = Kerjasama::create($data);
 
+    // Update Pivot Table
     $this->updateMitraSasaranPivot($kerjasama);
 
-    // Kembali ke halaman sebelumnya dengan pesan sukses
-    return redirect()->route('kerjasamaku.index')->with('success', 'Kerjasama berhasil disimpan!');
+    // Kirim respons JSON untuk permintaan AJAX
+    return response()->json([
+        'success' => true,
+        'message' => 'Kerjasama berhasil disimpan!'
+    ]);
 }
+
+
 
 
     public function show(Kerjasama $kerjasama)
@@ -214,6 +238,20 @@ public function index2()
     $jenis = Jenis::all();
 
     return view('kerjasama.edit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+}
+
+public function edituser($id)
+{
+    $kerjasama = Kerjasama::findOrFail($id);
+    $users = Auth::id();
+    $mitras = Mitra::all();
+    $kecamatans = Kecamatan::all();
+    $surveys = Survey::all();
+    $subsurvey1s = Subsurvey1::all();
+    $subsurvey2s = Subsurvey2::all();
+    $jenis = Jenis::all();
+
+    return view('kerjasamakuedit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 
@@ -242,6 +280,36 @@ public function update(Request $request, $id)
     $this->updateMitraSasaranPivot($kerjasama);
     // Redirect dengan pesan sukses
     return redirect()->route('kerjasama.index')->with('success', 'Kerjasama updated successfully.');
+}
+
+public function updateuser(Request $request, $id)
+{
+    // Cari data kerjasama yang dimiliki oleh user yang sedang login
+    $kerjasama = Kerjasama::where('id', $id)
+                            ->where('user_id', auth()->id())
+                            ->firstOrFail();
+
+    // Lakukan validasi data
+    $data = $request->validate([
+        'mitra_id' => 'required|exists:mitras,id',
+        'kecamatan_id' => 'required|exists:kecamatans,id',
+        'survey_id' => 'required|exists:surveys,id',
+        'subsurvey1_id' => 'nullable|exists:subsurvey1s,id',
+        'subsurvey2_id' => 'nullable|exists:subsurvey2s,id',
+        'jenis_id' => 'required|exists:jenis,id',
+        'date' => 'required|date',
+        'honor' => 'required|integer',
+        'bulan' => 'required|string|in:bulan,triwulan',
+    ]);
+
+    // Update data kerjasama dengan data yang sudah divalidasi
+    $kerjasama->update($data);
+
+    // Memanggil method tambahan untuk update relasi pivot jika diperlukan
+    $this->updateMitraSasaranPivot($kerjasama);
+
+    // Redirect ke halaman kerjasama dengan pesan sukses
+    return redirect()->route('kerjasamaku.index')->with('success', 'Kerjasama updated successfully.');
 }
 
 
