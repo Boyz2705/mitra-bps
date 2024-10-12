@@ -243,7 +243,7 @@ public function index2()
 public function edituser($id)
 {
     $kerjasama = Kerjasama::findOrFail($id);
-    $users = Auth::id();
+    $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
     $surveys = Survey::all();
@@ -284,13 +284,11 @@ public function update(Request $request, $id)
 
 public function updateuser(Request $request, $id)
 {
-    // Cari data kerjasama yang dimiliki oleh user yang sedang login
-    $kerjasama = Kerjasama::where('id', $id)
-                            ->where('user_id', auth()->id())
-                            ->firstOrFail();
+    $kerjasama = Kerjasama::findOrFail($id); // Load model berdasarkan ID
 
     // Lakukan validasi data
     $data = $request->validate([
+        'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
         'kecamatan_id' => 'required|exists:kecamatans,id',
         'survey_id' => 'required|exists:surveys,id',
@@ -302,13 +300,10 @@ public function updateuser(Request $request, $id)
         'bulan' => 'required|string|in:bulan,triwulan',
     ]);
 
-    // Update data kerjasama dengan data yang sudah divalidasi
+    // Update model dengan data yang divalidasi
     $kerjasama->update($data);
-
-    // Memanggil method tambahan untuk update relasi pivot jika diperlukan
     $this->updateMitraSasaranPivot($kerjasama);
-
-    // Redirect ke halaman kerjasama dengan pesan sukses
+    // Redirect dengan pesan sukses
     return redirect()->route('kerjasamaku.index')->with('success', 'Kerjasama updated successfully.');
 }
 
