@@ -35,6 +35,7 @@
                         <th>Tanggal</th>
                         <th>Honor</th>
                         <th>Periode</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@
                             <td>{{ \Carbon\Carbon::parse($k->date)->format('d-m-Y') }}</td>
                             <td><strong>{{ number_format($k->honor, 0, ',', '.') }}</strong></td>
                             <td>{{ $k->bulan }}</td>
+                            <td><a href="{{ route('kerjasamaku.edit', $k->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
                         </tr>
                     @endforeach
                 </tbody>

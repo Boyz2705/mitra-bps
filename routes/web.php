@@ -24,6 +24,9 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/mitraku', [MitraController::class, 'index2'])->name('mitra.index');
     Route::post('/', [KerjasamaController::class, 'storeuser'])->name('kerjasama.storeuser');
+    Route::get('/kerjasamaku', [KerjasamaController::class, 'index3'])->name('kerjasamaku.index');
+    Route::get('/kerjasamaku/{id}/edit', [KerjasamaController::class, 'edituser'])->name('kerjasamaku.edit');
+    Route::put('/kerjasamaku/{id}', [KerjasamaController::class, 'updateuser'])->name('kerjasamaku.update');
 
     Route::prefix('mulaikerjasama')->group(function () {
         Route::get('/', [KerjasamaController::class, 'index6'])->name('mulaikerjasama.index'); // Menampilkan daftar kerjasama; // Form untuk tambah kerjasama baru
@@ -116,11 +119,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 
-Route::get('/kerjasamaku', function () {
-    return view('kerjasamaku');
-});
 
 
-Route::get('/kerjasamaku', [KerjasamaController::class, 'index3'])->name('kerjasamaku.index');
+
+
 
 
