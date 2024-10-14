@@ -108,30 +108,24 @@ public function index2()
     $subsurvey2s = Subsurvey2::all();
     $jenis = Jenis::all();
 
-    // Fetch Kerjasama tidak tepat sasaran
+    // Fetch Kerjasama dengan total honor lebih dari 4 juta per bulan
     $currentYear = date('Y');
     $kerjasamaTidakTepatSasaran = DB::table('kerjasamas')
         ->select(
-            'kerjasamas.id', // Include the primary key
             'kerjasamas.mitra_id',
-            'kerjasamas.date',
-            'kerjasamas.honor',
-            'mitras.nama_mitra as mitra_name'
+            DB::raw('DATE_FORMAT(kerjasamas.date, "%Y-%m") as month'),
+            'mitras.nama_mitra as mitra_name',
+            DB::raw('SUM(kerjasamas.honor) as total_honor'),
+            DB::raw('GROUP_CONCAT(kerjasamas.id) as kerjasama_ids')
         )
         ->join('mitras', 'kerjasamas.mitra_id', '=', 'mitras.id')
         ->whereYear('kerjasamas.date', $currentYear)
-        ->groupBy(
-            'kerjasamas.id', // Include all non-aggregated columns
-            'kerjasamas.mitra_id',
-            'kerjasamas.date',
-            'kerjasamas.honor',
-            'mitras.nama_mitra'
-        )
-        ->havingRaw('SUM(kerjasamas.honor) > ?', [4000000])
+        ->groupBy('kerjasamas.mitra_id', 'month', 'mitras.nama_mitra')
+        ->havingRaw('total_honor > ?', [4000000])
         ->get();
 
     return view('kerjasama.index2', compact(
-        'kerjasama', // Corrected from 'kerjasamas' to 'kerjasama'
+        'kerjasama',
         'mitras',
         'kecamatans',
         'surveys',
