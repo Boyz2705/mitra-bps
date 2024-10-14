@@ -15,19 +15,21 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Mitra</th>
-                                <th>Tanggal</th>
+                                <th>Mitra ID</th>
+                                <th>Mitra Name</th>
+                                <th>Month</th>
                                 <th>Total Honor</th>
+                                <th>Kerjasama IDs</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($kerjasamaTidakTepatSasaran as $kerjasama)
                                 <tr>
-                                    <td>{{ $kerjasama->id }}</td>
-                                    <td>{{ $kerjasama->mitra_name }}</td>
-                                    <td>{{ $kerjasama->date }}</td>
-                                    <td>Rp {{ number_format($kerjasama->honor, 0, ',', '.') }}</td>
+                                    <td>{{ $kerjasama->mitra_id ?? 'N/A' }}</td>
+                                    <td>{{ $kerjasama->mitra_name ?? 'N/A' }}</td>
+                                    <td>{{ $kerjasama->month ?? 'N/A' }}</td>
+                                    <td>{{ isset($kerjasama->total_honor) ? 'Rp ' . number_format($kerjasama->total_honor, 0, ',', '.') : 'N/A' }}</td>
+                                    <td>{{ $kerjasama->kerjasama_ids ?? 'N/A' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
