@@ -18,6 +18,14 @@ class MitraController extends Controller
         // Kirim data ke view
         return view('mitra.index', compact('mitras'));
     }
+    public function index2()
+    {
+        // Ambil semua data mitra dari database
+        $mitras = Mitra::all();
+
+        // Kirim data ke view
+        return view('mitra', compact('mitras'));
+    }
 
     /**
      * Tampilkan form untuk membuat mitra baru.
