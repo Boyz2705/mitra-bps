@@ -4,15 +4,46 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">Manage Mitra</h1>
 
-    <!-- Tampilkan pesan status jika ada -->
     @if(session('success'))
         <div class="alert alert-success mb-1 mt-1">
             {{ session('success') }}
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="alert alert-danger mb-1 mt-1">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger mb-1 mt-1">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- Tampilkan tombol untuk menambah mitra baru -->
     <a href="{{ route('mitra.create') }}" class="btn btn-primary mb-3">Tambah Mitra Baru</a>
+
+    <div class="card mt-4 mb-4">
+        <div class="card-header">
+            <i class="fas fa-file-import me-1"></i> Import Data Mitra
+        </div>
+        <div class="card-body">
+            <form action="{{ route('mitras.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                    <label for="file" class="form-label">Pilih file Excel</label>
+                    <input type="file" name="file" class="form-control" id="file" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Import Data</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Tabel daftar mitra -->
     <div class="card mt-4 mb-4">

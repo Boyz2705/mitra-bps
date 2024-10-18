@@ -36,7 +36,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    Route::resource('mitra', MitraController::class);
+    // Route::resource('mitra', MitraController::class);
     Route::get('/kerjasama/pivot-report', [KerjasamaController::class, 'pivotReport'])->name('kerjasama.pivot_report');
     Route::get('/kerjatidaktepat', [KerjasamaController::class, 'index2'])->name('kerjasama.index2');
 
@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/', [MitraController::class, 'store'])->name('mitra.store'); // Menyimpan mitra baru
         Route::get('/{id}/edit', [MitraController::class, 'edit'])->name('mitra.edit'); // Form untuk edit mitra
         Route::put('/{id}', [MitraController::class, 'update'])->name('mitra.update'); // Memperbarui mitra
+        Route::get('/import-mitras', [MitraController::class, 'showImportForm'])->name('mitras.import.form');
+        Route::post('/import-mitras', [MitraController::class, 'import'])->name('mitras.import');
         Route::delete('/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy'); // Menghapus mitra
     });
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Mitra;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MitrasImport;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class MitraController extends Controller
 {
@@ -121,5 +124,33 @@ class MitraController extends Controller
 
         // Redirect ke halaman daftar mitra
         return redirect()->route('mitra.index')->with('success', 'Mitra berhasil dihapus.');
+    }
+
+    public function showImportForm()
+    {
+        return view('mitras.import');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        $file = $request->file('file');
+
+        try {
+            Excel::import(new MitrasImport, $file);
+            return redirect()->back()->with('success', 'Data berhasil diimpor.');
+        } catch (ValidationException $e) {
+            $failures = $e->failures();
+            $errors = [];
+            foreach ($failures as $failure) {
+                $errors[] = "Baris {$failure->row()}: {$failure->errors()[0]}";
+            }
+            return redirect()->back()->withErrors($errors);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }
