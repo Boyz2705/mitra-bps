@@ -40,6 +40,12 @@
                     <label for="file" class="form-label">Pilih file Excel</label>
                     <input type="file" name="file" class="form-control" id="file" required>
                 </div>
+                <div class="mb-3">
+                    <a href="{{ asset('assets/format_upload_mitra.xlsx') }}"
+                       download="DataMitraTemplate.xlsx" class="btn btn-secondary">
+                        Contoh Template Excel
+                    </a>
+                </div>
                 <button type="submit" class="btn btn-primary">Import Data</button>
             </form>
         </div>
