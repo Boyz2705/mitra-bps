@@ -41,6 +41,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Main Survey</th>
+                    <td>
+                        <select name="mainsurvey_id" id="mainsurvey_id" class="form-select" required>
+                            <option value="" disabled selected>Pilih Main Survey</option>
+                            @foreach($mainsurveys as $mainsurvey)
+                                <option value="{{ $mainsurvey->id }}">{{ $mainsurvey->nama_survey }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <th>Survey</th>
                     <td>
                         <select name="survey_id" id="survey_id" class="form-select" required>
@@ -115,6 +126,12 @@
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <th>Tanggal Pelaksanaan</th>
+                    <td>
+                        <input name="date" type="date" class="form-control" required>
+                    </td>
+                </tr>
 
                 <tr>
                     <th>Honor</th>
@@ -126,7 +143,7 @@
                 <tr>
                     <th>Tanggal Bayar</th>
                     <td>
-                        <input name="date" type="date" class="form-control" required>
+                        <input name="datebayar" type="date" class="form-control" required>
                     </td>
                 </tr>
 

@@ -4,10 +4,22 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">Dashboard Kerjasama</h1>
 
+    <form action="{{ route('kerjasama.index2') }}" method="GET" class="mb-4">
+        <div class="form-group">
+            <label for="year">Pilih Tahun:</label>
+            <select name="year" id="year" class="form-select" onchange="this.form.submit()">
+                @for ($i = date('Y') + 10; $i >= 2020; $i--)
+                    <option value="{{ $i }}" {{ $selectedYear == $i ? 'selected' : '' }}>{{ $i }}</option>
+                @endfor
+            </select>
+        </div>
+    </form>
+
+
     <!-- Kerjasama Tidak Tepat Sasaran Section -->
     <div class="card mt-4">
         <div class="card-header">
-            <h3 class="card-title">Kerjasama Tidak Tepat Sasaran (Tahun {{ date('Y') }})</h3>
+            <h3 class="card-title">Kerjasama Tidak Tepat Sasaran (Tahun {{ request('year', date('Y')) }})</h3>
         </div>
         <div class="card-body">
             @if($kerjasamaTidakTepatSasaran->count() > 0)
@@ -37,7 +49,7 @@
                 </div>
             @else
                 <div class="alert alert-info" role="alert">
-                    Tidak ada kerjasama yang tidak tepat sasaran untuk tahun ini.
+                    Tidak ada kerjasama yang tidak tepat sasaran untuk tahun {{ request('year', date('Y')) }}.
                 </div>
             @endif
         </div>

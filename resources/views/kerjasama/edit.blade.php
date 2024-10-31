@@ -55,6 +55,17 @@
 
         <!-- Pilihan Survey -->
         <div class="form-group mb-3">
+            <label for="survey_id">Survey Utama</label>
+            <select name="mainsurvey_id" id="mainsurvey_id" class="form-select" required>
+                @foreach($mainsurveys as $mainsurvey)
+                    <option value="{{ $mainsurvey->id }}" {{ $kerjasama->mainsurvey_id == $mainsurvey->id ? 'selected' : '' }}>
+                        {{ $mainsurvey->nama_survey }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <!-- Pilihan Survey -->
+        <div class="form-group mb-3">
             <label for="survey_id">Survey</label>
             <select name="survey_id" id="survey_id" class="form-select" required>
                 @foreach($surveys as $survey)
@@ -104,24 +115,48 @@
 
         <!-- Date -->
         <div class="form-group mb-3">
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" class="form-control" value="{{ $kerjasama->date }}" required>
+            <label for="date">Tanggal Pelaksanaan</label>
+            <input type="date" name="date" id="date" class="form-control" value="{{ old('date', $kerjasama->date) }}" required>
+        </div>
+
+        <!-- Date Bayar -->
+        <div class="form-group mb-3">
+            <label for="datebayar">Tanggal Bayar</label>
+            <input type="date" name="datebayar" id="datebayar" class="form-control" value="{{ old('datebayar', $kerjasama->datebayar) }}" required>
         </div>
 
         <!-- Honor -->
         <div class="form-group mb-3">
             <label for="honor">Honor</label>
-            <input type="number" name="honor" id="honor" class="form-control" value="{{ $kerjasama->honor }}" required>
+            <input type="number" name="honor" id="honor" class="form-control" value="{{ old('honor', $kerjasama->honor) }}" required>
         </div>
 
-        <!-- Pilihan Bulan -->
-        <select name="bulan" id="bulan" class="form-select" required>
-            <option value="bulan" {{ $kerjasama->bulan == 'bulan' ? 'selected' : '' }}>Bulan</option>
-            <option value="triwulan" {{ $kerjasama->bulan == 'triwulan' ? 'selected' : '' }}>Triwulan</option>
-        </select>
+        <!-- Pilihan Periode Pelaksanaan -->
+        <div class="form-group mb-3">
+            <label for="bulan">Periode</label>
+            <select name="bulan" id="bulan" class="form-select" required>
+                <option value="Januari" {{ $kerjasama->bulan == 'Januari' ? 'selected' : '' }}>Januari</option>
+                <option value="Februari" {{ $kerjasama->bulan == 'Februari' ? 'selected' : '' }}>Februari</option>
+                <option value="Maret" {{ $kerjasama->bulan == 'Maret' ? 'selected' : '' }}>Maret</option>
+                <option value="April" {{ $kerjasama->bulan == 'April' ? 'selected' : '' }}>April</option>
+                <option value="Mei" {{ $kerjasama->bulan == 'Mei' ? 'selected' : '' }}>Mei</option>
+                <option value="Juni" {{ $kerjasama->bulan == 'Juni' ? 'selected' : '' }}>Juni</option>
+                <option value="Juli" {{ $kerjasama->bulan == 'Juli' ? 'selected' : '' }}>Juli</option>
+                <option value="Agustus" {{ $kerjasama->bulan == 'Agustus' ? 'selected' : '' }}>Agustus</option>
+                <option value="September" {{ $kerjasama->bulan == 'September' ? 'selected' : '' }}>September</option>
+                <option value="Oktober" {{ $kerjasama->bulan == 'Oktober' ? 'selected' : '' }}>Oktober</option>
+                <option value="November" {{ $kerjasama->bulan == 'November' ? 'selected' : '' }}>November</option>
+                <option value="Desember" {{ $kerjasama->bulan == 'Desember' ? 'selected' : '' }}>Desember</option>
+                <option value="Jan-Mar" {{ $kerjasama->bulan == 'Jan-Mar' ? 'selected' : '' }}>Q1 (Jan - Mar)</option>
+                <option value="Apr-Jun" {{ $kerjasama->bulan == 'Apr-Jun' ? 'selected' : '' }}>Q2 (Apr - Jun)</option>
+                <option value="Jul-Sep" {{ $kerjasama->bulan == 'Jul-Sep' ? 'selected' : '' }}>Q3 (Jul - Sep)</option>
+                <option value="Okt-Des" {{ $kerjasama->bulan == 'Okt-Des' ? 'selected' : '' }}>Q4 (Okt - Des)</option>
+            </select>
+        </div>
+
 
         <button type="submit" class="btn btn-primary">Perbarui Kerjasama</button>
     </form>
-
 </div>
+
 @endsection

@@ -28,13 +28,15 @@
                         <th>User</th>
                         <th>Mitra</th>
                         <th>Kecamatan</th>
+                        <th>Survey Utama</th>
                         <th>Survey</th>
                         <th>Subsurvey 1</th>
                         <th>Subsurvey 2</th>
                         <th>Jenis</th>
-                        <th>Date</th>
+                        <th>Periode Pelaksanaan</th>
+                        <th>Tanggal Pelaksanaan</th>
+                        <th>Tanggal Bayar</th>
                         <th>Honor</th>
-                        <th>Bulan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -46,13 +48,16 @@
                             <td>{{ $k->user->name }}</td>
                             <td>{{ $k->mitra->nama_mitra }}</td>
                             <td>{{ $k->kecamatan->nama_kecamatan }}</td>
+                            <td>{{ $k->mainsurvey->nama_survey }}</td>
                             <td>{{ $k->survey->nama_survey }}</td>
                             <td>{{ $k->subsurvey1->nama_subsurvey ?? 'N/A' }}</td>
                             <td>{{ $k->subsurvey2->nama_subsurvey2s ?? 'N/A' }}</td>
                             <td>{{ $k->jenis->nama_jenis }}</td>
-                            <td>{{ $k->date }}</td>
-                            <td>{{ $k->honor }}</td>
                             <td>{{ $k->bulan }}</td>
+                            <td>{{ $k->date }}</td>
+                            <td>{{ $k->datebayar }}</td>
+                            <td>{{ $k->honor }}</td>
+
                             <td>
                                 <a href="{{ route('kerjasama.edit', $k->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('kerjasama.destroy', $k->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
@@ -111,6 +116,15 @@
                                 </select>
                             </div>
                             <div class="col-md-12">
+                                <label class="form-label">Survey Utama</label>
+                                <select name="mainsurvey_id" id="mainsurvey_id" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Survey Utama</option>
+                                    @foreach($mainsurveys as $mainsurvey)
+                                        <option value="{{ $mainsurvey->id }}">{{ $mainsurvey->nama_survey }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-12">
                                 <label class="form-label">Survey</label>
                                 <select name="survey_id" id="survey_id" class="form-select" required>
                                     <option value="" disabled selected>Pilih Survey</option>
@@ -146,8 +160,12 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Tanggal</label>
+                                <label class="form-label">Tanggal Pelaksanaan</label>
                                 <input name="date" type="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Tanggal Bayar</label>
+                                <input name="datebayar" type="date" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Honor</label>
@@ -155,10 +173,18 @@
                                 <input id="honor" name="honor" type="hidden">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Periode</label>
-                                <select name="bulan" class="form-select" required>
+                                <label class="form-label">Periode Pelaksanaan</label>
+                                <select id="periode" class="form-select" required onchange="updateOptions()">
+                                    <option value="">Pilih Periode</option>
                                     <option value="Bulan">Bulan</option>
                                     <option value="Triwulan">Triwulan</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12" id="option-container" style="display: none;">
+                                <label class="form-label">Pilih Bulan atau Triwulan</label>
+                                <select name="bulan" class="form-select" required>
+                                    <!-- Options will be populated here by JavaScript -->
                                 </select>
                             </div>
                         </div>
@@ -249,6 +275,39 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+    function updateOptions() {
+        const periode = document.getElementById('periode').value;
+        const optionContainer = document.getElementById('option-container');
+        const optionsSelect = optionContainer.querySelector('select[name="bulan"]');
+
+        // Clear existing options
+        optionsSelect.innerHTML = '';
+
+        // Show the container and add options based on selection
+        if (periode === 'Bulan') {
+            optionContainer.style.display = 'block';
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month;
+                optionsSelect.appendChild(option);
+            });
+        } else if (periode === 'Triwulan') {
+            optionContainer.style.display = 'block';
+            const quarters = ['Jan-Mar', 'Apr-Jun', 'Jul-Sep', 'Okt-Des'];
+            quarters.forEach(quarter => {
+                const option = document.createElement('option');
+                option.value = quarter;
+                option.textContent = quarter;
+                optionsSelect.appendChild(option);
+            });
+        } else {
+            optionContainer.style.display = 'none'; // Hide if nothing is selected
+        }
+    }
+</script>
 
 @if(session('alert'))
     <script>

@@ -28,13 +28,15 @@
                         <th>No</th>
                         <th>Mitra</th>
                         <th>Kecamatan</th>
+                        <th>Survey Utama</th>
                         <th>Survey</th>
                         <th>Subsurvey 1</th>
                         <th>Subsurvey 2</th>
                         <th>Jenis</th>
-                        <th>Tanggal</th>
+                        <th>Periode Pelaksanaan</th>
+                        <th>Tanggal Pelaksanaan</th>
                         <th>Honor</th>
-                        <th>Periode</th>
+                        <th>Tanggal Bayar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -44,13 +46,15 @@
                             <td><strong>{{ $key + 1 }}</strong></td>
                             <td>{{ $k->mitra->nama_mitra }}</td>
                             <td>{{ $k->kecamatan->nama_kecamatan }}</td>
+                            <td>{{ $k->mainsurvey->nama_survey }}</td>
                             <td>{{ $k->survey->nama_survey }}</td>
                             <td>{{ $k->subsurvey1 ? $k->subsurvey1->nama_subsurvey : '-' }}</td>
                             <td>{{ $k->subsurvey2 ? $k->subsurvey2->nama_subsurvey2s : '-' }}</td>
                             <td>{{ $k->jenis ? $k->jenis->nama_jenis : '-' }}</td>
+                            <td>{{ $k->bulan }}</td>
                             <td>{{ \Carbon\Carbon::parse($k->date)->format('d-m-Y') }}</td>
                             <td><strong>{{ number_format($k->honor, 0, ',', '.') }}</strong></td>
-                            <td>{{ $k->bulan }}</td>
+                            <td>{{ \Carbon\Carbon::parse($k->datebayar)->format('d-m-Y') }}</td>
                             <td><a href="{{ route('kerjasamaku.edit', $k->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
                         </tr>
                     @endforeach

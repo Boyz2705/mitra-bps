@@ -70,6 +70,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Email</th>
                         <th>Posisi</th>
+                        <th>Tahun</th>
                         <th>Kinerja</th>
                         <th>Aksi</th>
                     </tr>
@@ -86,6 +87,7 @@
                         <td>{{ $mitra->jenis_kelamin }}</td>
                         <td>{{ $mitra->email }}</td>
                         <td>{{ $mitra->posisi }}</td>
+                        <td>{{ $mitra->tahun }}</td>
                         <td>{{ $mitra->kinerja }}</td>
                         <td>
                             <a href="{{ route('mitra.edit', $mitra->id) }}" class="btn btn-warning btn-sm">Edit</a>

@@ -62,6 +62,16 @@
                     </div>
 
                     <div class="col-md-6">
+                        <label class="form-label fw-bold">Survey Utama</label>
+                        <select name="mainsurvey_id" id="mainsurvey_id" class="form-select" required>
+                            @foreach($mainsurveys as $mainsurvey)
+                                <option value="{{ $mainsurvey->id }}" {{ $kerjasama->mainsurvey_id == $mainsurvey->id ? 'selected' : '' }}>
+                                    {{ $mainsurvey->nama_survey }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Survey</label>
                         <select name="survey_id" id="survey_id" class="form-select" required>
                             @foreach($surveys as $survey)
@@ -106,8 +116,13 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Tanggal</label>
+                        <label class="form-label fw-bold">Tanggal Pelaksanaan</label>
                         <input name="date" type="date" class="form-control" value="{{ $kerjasama->date }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Tanggal Bayar</label>
+                        <input name="datebayar" type="date" class="form-control" value="{{ $kerjasama->datebayar }}" required>
                     </div>
 
                     <div class="col-md-6">
@@ -121,12 +136,19 @@
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Periode</label>
-                        <select name="bulan" class="form-select" required>
+                        <select id="periode" class="form-select" required onchange="updateOptions()">
+                            <option value="">Pilih Periode</option>
                             <option value="bulan" {{ $kerjasama->bulan == 'Bulan' ? 'selected' : '' }}>Bulan</option>
                             <option value="triwulan" {{ $kerjasama->bulan == 'Triwulan' ? 'selected' : '' }}>Triwulan</option>
                         </select>
                     </div>
-                </div>
+
+                    <div class="col-md-6" id="option-container" style="display: none;">
+                        <label class="form-label fw-bold">Pilih Bulan atau Triwulan</label>
+                        <select name="bulan" class="form-select" required>
+                            <!-- Options will be populated here -->
+                        </select>
+                    </div>
 
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary btn-lg px-5">Update Kerjasamaku</button>
@@ -169,4 +191,58 @@
         return rupiah;
     }
 </script>
+<script>
+    function updateOptions() {
+        const periodeSelect = document.getElementById('periode');
+        const optionContainer = document.getElementById('option-container');
+        const periodeOptionsSelect = optionContainer.querySelector('select');
+
+        // Clear existing options
+        periodeOptionsSelect.innerHTML = '';
+
+        if (periodeSelect.value === 'bulan') {
+            // Populate with months
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei',
+                'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+                'November', 'Desember'
+            ];
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month; // Set value for month
+                option.textContent = month;
+                // Set selected if it matches kerjasama's month
+                if (month === '{{ $kerjasama->bulan }}') {
+                    option.selected = true;
+                }
+                periodeOptionsSelect.appendChild(option);
+            });
+            optionContainer.style.display = 'block'; // Show container
+        } else if (periodeSelect.value === 'triwulan') {
+            // Populate with quarters
+            const quarters = [
+                'Q1 (Jan - Mar)',
+                'Q2 (Apr - Jun)',
+                'Q3 (Jul - Sep)',
+                'Q4 (Okt - Des)'
+            ];
+            quarters.forEach(quarter => {
+                const option = document.createElement('option');
+                option.value = quarter; // Set value for quarter
+                option.textContent = quarter;
+                // Set selected if it matches kerjasama's month
+                if (quarter === '{{ $kerjasama->bulan }}') {
+                    option.selected = true;
+                }
+                periodeOptionsSelect.appendChild(option);
+            });
+            optionContainer.style.display = 'block'; // Show container
+        } else {
+            optionContainer.style.display = 'none'; // Hide if nothing selected
+        }
+    }
+
+    // Trigger the updateOptions function on page load to set initial state
+    window.onload = updateOptions;
+    </script>
 @endpush
