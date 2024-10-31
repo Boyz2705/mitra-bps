@@ -3,6 +3,7 @@
 use App\Http\Controllers\Subsurvey1Controller;
 use App\Http\Controllers\Subsurvey2Controller;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\MainSurveyController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MitraController;
@@ -49,6 +50,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/import-mitras', [MitraController::class, 'showImportForm'])->name('mitras.import.form');
         Route::post('/import-mitras', [MitraController::class, 'import'])->name('mitras.import');
         Route::delete('/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy'); // Menghapus mitra
+    });
+
+    Route::prefix('mainsurveys')->group(function () {
+        Route::get('/', [MainSurveyController::class, 'index'])->name('mainsurveys.index');
+        Route::get('/create', [MainSurveyController::class, 'create'])->name('mainsurveys.create');
+        Route::post('/', [MainSurveyController::class, 'store'])->name('mainsurveys.store');
+        Route::get('/mainsurveys/{id}/edit', [MainSurveyController::class, 'edit'])->name('mainsurveys.edit');
+        Route::put('/mainsurveys/{id}', [MainSurveyController::class, 'update'])->name('mainsurveys.update');
+        Route::delete('/{id}', [MainSurveyController::class, 'destroy'])->name('mainsurveys.destroy');
     });
 
     Route::prefix('surveys')->group(function () {

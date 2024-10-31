@@ -13,26 +13,15 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
+    
     public function run()
     {
-        // Menghapus semua pengguna yang ada
-        User::truncate();
-
-        // Membuat pengguna baru
+        // Membuat User Admin
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('admin123'), // Ganti dengan password yang aman
-            'role' => 'admin', // Pastikan ada kolom 'role' di tabel users
+            'password' => Hash::make('admin123'),
+            'role' => 'admin',
         ]);
-
-        User::create([
-            'name' => 'Regular User',
-            'email' => 'user@user.com',
-            'password' => Hash::make('user123'),
-            'role' => 'pegawai',
-        ]);
-
-        // Anda bisa menambahkan lebih banyak pengguna sesuai kebutuhan
     }
 }
