@@ -34,6 +34,7 @@
                         <th>Subsurvey 2</th>
                         <th>Jenis</th>
                         <th>Periode Pelaksanaan</th>
+                        <th>Tanggal Pelaksanaan</th>
                         <th>Honor</th>
                         <th>Tanggal Bayar</th>
                         <th>Aksi</th>
@@ -51,8 +52,9 @@
                             <td>{{ $k->subsurvey2 ? $k->subsurvey2->nama_subsurvey2s : '-' }}</td>
                             <td>{{ $k->jenis ? $k->jenis->nama_jenis : '-' }}</td>
                             <td>{{ $k->bulan }}</td>
-                            <td><strong>{{ number_format($k->honor, 0, ',', '.') }}</strong></td>
                             <td>{{ \Carbon\Carbon::parse($k->date)->format('d-m-Y') }}</td>
+                            <td><strong>{{ number_format($k->honor, 0, ',', '.') }}</strong></td>
+                            <td>{{ \Carbon\Carbon::parse($k->datebayar)->format('d-m-Y') }}</td>
                             <td><a href="{{ route('kerjasamaku.edit', $k->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
                         </tr>
                     @endforeach

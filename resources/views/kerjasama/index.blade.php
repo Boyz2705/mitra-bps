@@ -34,6 +34,7 @@
                         <th>Subsurvey 2</th>
                         <th>Jenis</th>
                         <th>Periode Pelaksanaan</th>
+                        <th>Tanggal Pelaksanaan</th>
                         <th>Tanggal Bayar</th>
                         <th>Honor</th>
                         <th>Aksi</th>
@@ -54,6 +55,7 @@
                             <td>{{ $k->jenis->nama_jenis }}</td>
                             <td>{{ $k->bulan }}</td>
                             <td>{{ $k->date }}</td>
+                            <td>{{ $k->datebayar }}</td>
                             <td>{{ $k->honor }}</td>
 
                             <td>
@@ -158,8 +160,12 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Tanggal Bayar</label>
+                                <label class="form-label">Tanggal Pelaksanaan</label>
                                 <input name="date" type="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Tanggal Bayar</label>
+                                <input name="datebayar" type="date" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Honor</label>
@@ -177,8 +183,8 @@
 
                             <div class="col-md-12" id="option-container" style="display: none;">
                                 <label class="form-label">Pilih Bulan atau Triwulan</label>
-                                <select name="periode_options" class="form-select" required>
-                                    <!-- Options will be populated here -->
+                                <select name="bulan" class="form-select" required>
+                                    <!-- Options will be populated here by JavaScript -->
                                 </select>
                             </div>
                         </div>
@@ -269,6 +275,39 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+    function updateOptions() {
+        const periode = document.getElementById('periode').value;
+        const optionContainer = document.getElementById('option-container');
+        const optionsSelect = optionContainer.querySelector('select[name="bulan"]');
+
+        // Clear existing options
+        optionsSelect.innerHTML = '';
+
+        // Show the container and add options based on selection
+        if (periode === 'Bulan') {
+            optionContainer.style.display = 'block';
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month;
+                optionsSelect.appendChild(option);
+            });
+        } else if (periode === 'Triwulan') {
+            optionContainer.style.display = 'block';
+            const quarters = ['Jan-Mar', 'Apr-Jun', 'Jul-Sep', 'Okt-Des'];
+            quarters.forEach(quarter => {
+                const option = document.createElement('option');
+                option.value = quarter;
+                option.textContent = quarter;
+                optionsSelect.appendChild(option);
+            });
+        } else {
+            optionContainer.style.display = 'none'; // Hide if nothing is selected
+        }
+    }
+</script>
 
 @if(session('alert'))
     <script>

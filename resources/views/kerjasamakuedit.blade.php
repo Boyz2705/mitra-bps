@@ -116,8 +116,13 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Tanggal</label>
+                        <label class="form-label fw-bold">Tanggal Pelaksanaan</label>
                         <input name="date" type="date" class="form-control" value="{{ $kerjasama->date }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Tanggal Bayar</label>
+                        <input name="datebayar" type="date" class="form-control" value="{{ $kerjasama->datebayar }}" required>
                     </div>
 
                     <div class="col-md-6">

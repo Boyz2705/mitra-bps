@@ -126,6 +126,12 @@
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <th>Tanggal Pelaksanaan</th>
+                    <td>
+                        <input name="date" type="date" class="form-control" required>
+                    </td>
+                </tr>
 
                 <tr>
                     <th>Honor</th>
@@ -137,7 +143,7 @@
                 <tr>
                     <th>Tanggal Bayar</th>
                     <td>
-                        <input name="date" type="date" class="form-control" required>
+                        <input name="datebayar" type="date" class="form-control" required>
                     </td>
                 </tr>
 

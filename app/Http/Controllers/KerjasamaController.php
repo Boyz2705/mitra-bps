@@ -267,9 +267,11 @@ public function edituser($id)
 
 public function update(Request $request, $id)
 {
+
     $kerjasama = Kerjasama::findOrFail($id); // Load model berdasarkan ID
 
-    // Lakukan validasi data
+
+    // Validasi data
     $data = $request->validate([
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
@@ -282,13 +284,13 @@ public function update(Request $request, $id)
         'date' => 'required|date',
         'datebayar' => 'required|date',
         'honor' => 'required|integer',
-        'bulan' => 'required|string|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember,Q1 (Jan - Mar),Q2 (Apr - Jun),Q3 (Jul - Sep),Q4 (Okt - Des)',
-
+        'bulan' => 'required|string',
     ]);
 
     // Update model dengan data yang divalidasi
     $kerjasama->update($data);
     $this->updateMitraSasaranPivot($kerjasama);
+
     // Redirect dengan pesan sukses
     return redirect()->route('kerjasama.index')->with('success', 'Kerjasama updated successfully.');
 }
@@ -296,6 +298,7 @@ public function update(Request $request, $id)
 public function updateuser(Request $request, $id)
 {
     $kerjasama = Kerjasama::findOrFail($id); // Load model berdasarkan ID
+
 
     // Lakukan validasi data
     $data = $request->validate([
@@ -325,10 +328,18 @@ public function updateuser(Request $request, $id)
 
 public function destroy($id)
 {
-
     $kerjasama = Kerjasama::findOrFail($id);
+
+    // Simpan data yang diperlukan sebelum menghapus
+    $mitra_id = $kerjasama->mitra_id;
+    $date = $kerjasama->date;
+
+    // Hapus kerjasama
     $kerjasama->delete();
-    $this->updateMitraSasaranPivot($kerjasama);
+
+    // Update pivot menggunakan fungsi khusus untuk penghapusan
+    $this->updateMitraSasaranPivotAfterDelete($mitra_id, $date);
+
     return redirect()->route('kerjasama.index')->with('statusdel', 'Kerjasama deleted successfully.');
 }
 
@@ -471,4 +482,36 @@ private function updateMitraSasaranPivot(Kerjasama $kerjasama)
     );
 }
 
+private function updateMitraSasaranPivotAfterDelete($mitra_id, $date)
+{
+    $year = date('Y', strtotime($date));
+    $month = date('m', strtotime($date));
+
+    // Hitung ulang total honor untuk mitra pada bulan tersebut
+    $totalHonor = Kerjasama::where('mitra_id', $mitra_id)
+        ->whereYear('date', $year)
+        ->whereMonth('date', $month)
+        ->sum('honor');
+
+    if ($totalHonor > 0) {
+        // Jika masih ada kerjasama lain, update pivot
+        MitraSasaranPivot::updateOrCreate(
+            [
+                'mitra_id' => $mitra_id,
+                'tahun' => $year,
+                'bulan' => $month
+            ],
+            [
+                'tepat_sasaran' => $totalHonor <= 4000000,
+                'total_honor' => $totalHonor
+            ]
+        );
+    } else {
+        // Jika tidak ada kerjasama lain, hapus record pivot
+        MitraSasaranPivot::where('mitra_id', $mitra_id)
+            ->where('tahun', $year)
+            ->where('bulan', $month)
+            ->delete();
+    }
+}
 }
