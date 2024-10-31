@@ -8,13 +8,14 @@
         <div class="form-group">
             <label for="year">Pilih Tahun:</label>
             <select name="year" id="year" class="form-select">
-                @for ($i = date('Y'); $i >= 2020; $i--)
-                    <option value="{{ $i }}" {{ $year == $i ? 'selected' : '' }}>{{ $i }}</option>
+                @for ($i = date('Y') + 10; $i >= 2020; $i--)
+                    <option value="{{ $i }}" {{ isset($year) && $year == $i ? 'selected' : '' }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Lihat Laporan</button>
     </form>
+
 
     <div class="card">
         <div class="card-header">

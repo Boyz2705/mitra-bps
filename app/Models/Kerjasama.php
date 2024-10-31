@@ -14,11 +14,13 @@ class Kerjasama extends Model
         'user_id',
         'mitra_id',
         'kecamatan_id',
+        'mainsurvey_id',
         'survey_id',
         'subsurvey1_id',
         'subsurvey2_id',
         'jenis_id',
         'date',
+        'datebayar',
         'honor',
         'bulan',
     ];
@@ -39,6 +41,10 @@ class Kerjasama extends Model
         return $this->belongsTo(Kecamatan::class);
     }
 
+    public function mainsurvey()
+    {
+        return $this->belongsTo(MainSurvey::class);
+    }
     public function survey()
     {
         return $this->belongsTo(Survey::class);

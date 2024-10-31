@@ -41,6 +41,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Main Survey</th>
+                    <td>
+                        <select name="mainsurvey_id" id="mainsurvey_id" class="form-select" required>
+                            <option value="" disabled selected>Pilih Main Survey</option>
+                            @foreach($mainsurveys as $mainsurvey)
+                                <option value="{{ $mainsurvey->id }}">{{ $mainsurvey->nama_survey }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <th>Survey</th>
                     <td>
                         <select name="survey_id" id="survey_id" class="form-select" required>

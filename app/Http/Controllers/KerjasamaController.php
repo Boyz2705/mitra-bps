@@ -88,6 +88,7 @@ public function index4()
     $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all(); // Subsurvey1
     $subsurvey2s = Subsurvey2::all(); // Subsurvey2
@@ -98,8 +99,10 @@ public function index4()
 
 // Example: KerjasamaController.php
 
-public function index2()
+public function index2(Request $request)
 {
+    $selectedYear = $request->input('year', date('Y')); // Ambil tahun dari request atau gunakan tahun saat ini
+
     $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan','mainsurvey', 'survey', 'subsurvey1', 'subsurvey2'])
         ->orderBy('date', 'desc')
         ->get();
@@ -107,13 +110,13 @@ public function index2()
     $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all();
     $subsurvey2s = Subsurvey2::all();
     $jenis = Jenis::all();
 
-    // Fetch Kerjasama dengan total honor lebih dari 4 juta per bulan
-    $currentYear = date('Y');
+    // Fetch Kerjasama dengan total honor lebih dari 4 juta per bulan berdasarkan tahun yang dipilih
     $kerjasamaTidakTepatSasaran = DB::table('kerjasamas')
         ->select(
             'kerjasamas.mitra_id',
@@ -123,7 +126,7 @@ public function index2()
             DB::raw('GROUP_CONCAT(kerjasamas.id) as kerjasama_ids')
         )
         ->join('mitras', 'kerjasamas.mitra_id', '=', 'mitras.id')
-        ->whereYear('kerjasamas.date', $currentYear)
+        ->whereYear('kerjasamas.date', $selectedYear)
         ->groupBy('kerjasamas.mitra_id', 'month', 'mitras.nama_mitra')
         ->havingRaw('total_honor > ?', [4000000])
         ->get();
@@ -132,14 +135,15 @@ public function index2()
         'kerjasama',
         'mitras',
         'kecamatans',
+        'mainsurveys',
         'surveys',
         'subsurvey1s',
         'subsurvey2s',
         'jenis',
-        'kerjasamaTidakTepatSasaran'
+        'kerjasamaTidakTepatSasaran',
+        'selectedYear' // Menyertakan tahun yang dipilih untuk view
     ));
 }
-
 
     public function create()
     {
@@ -160,6 +164,7 @@ public function index2()
             'date' => 'required|date',
             'honor' => 'required|integer',
             'bulan' => 'required|string',
+            'datebayar' => 'required|date',
         ]);
 
         $kerjasama = Kerjasama::create($data);
@@ -184,6 +189,7 @@ public function index2()
         'date' => 'required|date',
         'honor' => 'required|integer',
         'bulan' => 'required|string',
+        'datebayar' => 'required|date',
     ]);
 
     // Ambil bulan dari kolom date
@@ -232,12 +238,13 @@ public function index2()
     $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all();
     $subsurvey2s = Subsurvey2::all();
     $jenis = Jenis::all();
 
-    return view('kerjasama.edit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('kerjasama.edit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'mainsurveys', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 public function edituser($id)
@@ -246,12 +253,13 @@ public function edituser($id)
     $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all();
     $subsurvey2s = Subsurvey2::all();
     $jenis = Jenis::all();
 
-    return view('kerjasamakuedit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('kerjasamakuedit', compact('kerjasama', 'users', 'mitras', 'kecamatans', 'mainsurveys','surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 
@@ -266,13 +274,16 @@ public function update(Request $request, $id)
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
         'kecamatan_id' => 'required|exists:kecamatans,id',
+        'mainsurvey_id' => 'required|exists:mainsurveys,id',
         'survey_id' => 'required|exists:surveys,id',
         'subsurvey1_id' => 'nullable|exists:subsurvey1s,id',
         'subsurvey2_id' => 'nullable|exists:subsurvey2s,id',
         'jenis_id' => 'required|exists:jenis,id',
         'date' => 'required|date',
+        'datebayar' => 'required|date',
         'honor' => 'required|integer',
-        'bulan' => 'required|string|in:bulan,triwulan',
+        'bulan' => 'required|string|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember,Q1 (Jan - Mar),Q2 (Apr - Jun),Q3 (Jul - Sep),Q4 (Okt - Des)',
+
     ]);
 
     // Update model dengan data yang divalidasi
@@ -291,13 +302,16 @@ public function updateuser(Request $request, $id)
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
         'kecamatan_id' => 'required|exists:kecamatans,id',
+        'mainsurvey_id' => 'required|exists:mainsurveys,id',
         'survey_id' => 'required|exists:surveys,id',
         'subsurvey1_id' => 'nullable|exists:subsurvey1s,id',
         'subsurvey2_id' => 'nullable|exists:subsurvey2s,id',
         'jenis_id' => 'required|exists:jenis,id',
         'date' => 'required|date',
+        'datebayar' => 'required|date',
         'honor' => 'required|integer',
-        'bulan' => 'required|string|in:bulan,triwulan',
+        'bulan' => 'required|string|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember,Q1 (Jan - Mar),Q2 (Apr - Jun),Q3 (Jul - Sep),Q4 (Okt - Des)',
+
     ]);
 
     // Update model dengan data yang divalidasi
@@ -322,7 +336,7 @@ public function destroy($id)
     public function kerjasama()
 {
     // Ambil semua data kerjasama untuk user yang sedang login
-    $kerjasama = Kerjasama::with(['mitra', 'kecamatan', 'survey', 'subsurvey1', 'subsurvey2'])
+    $kerjasama = Kerjasama::with(['mitra', 'kecamatan', 'mainsurvey','survey', 'subsurvey1', 'subsurvey2'])
         ->where('user_id', Auth::id()) // Filter berdasarkan user yang sedang login
         ->orderBy('date', 'desc') // Urutkan berdasarkan tanggal
         ->get();
