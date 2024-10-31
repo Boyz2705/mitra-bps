@@ -30,9 +30,9 @@
                         <th>Subsurvey 1</th>
                         <th>Subsurvey 2</th>
                         <th>Jenis</th>
-                        <th>Tanggal</th>
+                        <th>Tanggal Bayar</th>
                         <th>Honor</th>
-                        <th>Periode</th>
+                        <th>Periode Pelaksanaan</th>
                     </tr>
                 </thead>
                 <tbody>
