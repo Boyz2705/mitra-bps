@@ -84,11 +84,38 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Tanggal</th>
+                    <th>Periode Pelaksanaan</th>
                     <td>
-                        <input name="date" type="date" class="form-control" required>
+                        <select id="periode-select" name="periode" class="form-select" required onchange="showOptions()">
+                            <option value="">Pilih Periode</option>
+                            <option value="Bulan">Bulan</option>
+                            <option value="Triwulan">Triwulan</option>
+                        </select>
+
+                        <select id="bulan-select" name="bulan" class="form-select mt-2" style="display: none;">
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                        </select>
+
+                        <select id="triwulan-select" name="bulan" class="form-select mt-2" style="display: none;">
+                            <option value="Jan-Mar">Jan-Mar</option>
+                            <option value="Apr-Jun">Apr-Jun</option>
+                            <option value="Jul-Sep">Jul-Sep</option>
+                            <option value="Okt-Des">Okt-Des</option>
+                        </select>
                     </td>
                 </tr>
+
                 <tr>
                     <th>Honor</th>
                     <td>
@@ -97,14 +124,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Periode</th>
+                    <th>Tanggal Bayar</th>
                     <td>
-                        <select name="bulan" class="form-select" required>
-                            <option value="Bulan">Bulan</option>
-                            <option value="Triwulan">Triwulan</option>
-                        </select>
+                        <input name="date" type="date" class="form-control" required>
                     </td>
                 </tr>
+
                 <tr>
                     <td colspan="2" class="text-center">
                         <button type="submit" class="btn btn-success">Submit</button>
@@ -204,4 +229,23 @@ document.getElementById('formatted_honor').addEventListener('input', function(e)
     document.getElementById('honor').value = value.replace(/\./g, '');
 });
 </script>
+
+<script>
+    function showOptions() {
+        const periodeSelect = document.getElementById('periode-select');
+        const bulanSelect = document.getElementById('bulan-select');
+        const triwulanSelect = document.getElementById('triwulan-select');
+
+        if (periodeSelect.value === "Bulan") {
+            bulanSelect.style.display = "block";
+            triwulanSelect.style.display = "none";
+        } else if (periodeSelect.value === "Triwulan") {
+            triwulanSelect.style.display = "block";
+            bulanSelect.style.display = "none";
+        } else {
+            bulanSelect.style.display = "none";
+            triwulanSelect.style.display = "none";
+        }
+    }
+    </script>
 @endsection

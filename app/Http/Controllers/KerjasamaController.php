@@ -12,6 +12,7 @@ use App\Models\Kecamatan;
 use App\Models\Subsurvey1;
 use App\Models\Subsurvey2;
 use App\Models\Survey;
+use App\Models\MainSurvey;
 use App\Models\User;
 use App\Models\MitraSasaranPivot;
 use Illuminate\Support\Facades\DB;
@@ -20,16 +21,17 @@ class KerjasamaController extends Controller
 {
     public function index()
 {
-    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','subsurvey1','subsurvey2'])->orderBy('date', 'desc')->get();
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan','mainsurvey','survey','subsurvey1','subsurvey2'])->orderBy('date', 'desc')->get();
     $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all(); // Subsurvey1
     $subsurvey2s = Subsurvey2::all(); // Subsurvey2
     $jenis = Jenis::all(); // Jenis
 
-    return view('kerjasama.index', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('kerjasama.index', compact('kerjasama', 'mitras', 'kecamatans','mainsurveys' ,'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 public function index3()
@@ -38,7 +40,7 @@ public function index3()
     $userId = Auth::id();
 
     // Filter kerjasama berdasarkan user yang login
-    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','subsurvey1','subsurvey2'])
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'mainsurvey' ,'survey','subsurvey1','subsurvey2'])
         ->where('user_id', $userId) // Filter berdasarkan user_id
         ->orderBy('date', 'desc')
         ->get();
@@ -46,12 +48,13 @@ public function index3()
     // Ambil data terkait lainnya
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all(); // Subsurvey1
     $subsurvey2s = Subsurvey2::all(); // Subsurvey2
     $jenis = Jenis::all(); // Jenis
 
-    return view('kerjasamaku', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('kerjasamaku', compact('kerjasama', 'mitras', 'kecamatans','mainsurveys' , 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 public function index5()
@@ -69,18 +72,19 @@ public function index6()
 {
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
+    $mainsurveys = MainSurvey::all();
     $surveys = Survey::all();
     $subsurvey1s = Subsurvey1::all();
     $subsurvey2s = Subsurvey2::all();
     $jenis = Jenis::all();
 
-    return view('mulaikerjasama', compact('mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('mulaikerjasama', compact('mitras', 'kecamatans','mainsurveys' , 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 
 public function index4()
 {
-    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey','subsurvey1','subsurvey2'])->orderBy('date', 'desc')->get();
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan','mainsurvey' , 'survey','subsurvey1','subsurvey2'])->orderBy('date', 'desc')->get();
     $users = User::all();
     $mitras = Mitra::all();
     $kecamatans = Kecamatan::all();
@@ -89,14 +93,14 @@ public function index4()
     $subsurvey2s = Subsurvey2::all(); // Subsurvey2
     $jenis = Jenis::all(); // Jenis
 
-    return view('kerjasamaorg', compact('kerjasama', 'mitras', 'kecamatans', 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
+    return view('kerjasamaorg', compact('kerjasama', 'mitras', 'kecamatans','mainsurveys' , 'surveys', 'subsurvey1s', 'subsurvey2s', 'jenis'));
 }
 
 // Example: KerjasamaController.php
 
 public function index2()
 {
-    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan', 'survey', 'subsurvey1', 'subsurvey2'])
+    $kerjasama = Kerjasama::with(['user', 'mitra', 'kecamatan','mainsurvey', 'survey', 'subsurvey1', 'subsurvey2'])
         ->orderBy('date', 'desc')
         ->get();
 
@@ -148,6 +152,7 @@ public function index2()
             'user_id' => 'required|exists:users,id',
             'mitra_id' => 'required|exists:mitras,id',
             'kecamatan_id' => 'required|exists:kecamatans,id',
+            'mainsurvey_id' => 'required|exists:mainsurveys,id',
             'survey_id' => 'required|exists:surveys,id',
             'subsurvey1_id' => 'required|exists:subsurvey1s,id',
             'subsurvey2_id' => 'required|exists:subsurvey2s,id',
@@ -171,6 +176,7 @@ public function index2()
         'user_id' => 'required|exists:users,id',
         'mitra_id' => 'required|exists:mitras,id',
         'kecamatan_id' => 'required|exists:kecamatans,id',
+        'mainsurvey_id' => 'required|exists:mainsurveys,id',
         'survey_id' => 'required|exists:surveys,id',
         'subsurvey1_id' => 'required|exists:subsurvey1s,id',
         'subsurvey2_id' => 'required|exists:subsurvey2s,id',
