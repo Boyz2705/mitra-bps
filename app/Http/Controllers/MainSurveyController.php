@@ -9,8 +9,8 @@ class MainSurveyController extends Controller
 {
     public function index()
     {
-        $surveys = MainSurvey::all();
-        return view('mainsurveys.index', compact('surveys'));
+        $mainsurveys = MainSurvey::all();
+        return view('mainsurveys.index', compact('mainsurveys'));
     }
 
     public function create()
@@ -25,14 +25,14 @@ class MainSurveyController extends Controller
         ]);
 
         MainSurvey::create($request->all());
-        return redirect()->route('surveys.index')->with('success', 'Survey berhasil dibuat');
+        return redirect()->route('mainsurveys.index')->with('success', 'Main Survey berhasil dibuat');
     }
 
     public function edit($id)
 {
     // Gunakan findOrFail untuk mencari survey dengan ID
-    $survey = MainSurvey::findOrFail($id);
-    return view('mainsurveys.edit', compact('survey'));
+    $mainsurvey = MainSurvey::findOrFail($id);
+    return view('mainsurveys.edit', compact('mainsurvey'));
 }
 
 public function update(Request $request, $id)
@@ -43,10 +43,10 @@ public function update(Request $request, $id)
     ]);
 
     // Cari survey berdasarkan ID
-    $survey = MainSurvey::findOrFail($id);
+    $mainsurvey = MainSurvey::findOrFail($id);
 
     // Update survey dengan data baru
-    $survey->update([
+    $mainsurvey->update([
         'nama_survey' => $request->input('nama_survey'),
     ]);
 
@@ -58,8 +58,8 @@ public function update(Request $request, $id)
 
     public function destroy($id)
     {
-    $survey = MainSurvey::findOrFail($id); // Pastikan ID ditemukan
-    $survey->delete(); // Hapus survey dari database
+    $mainsurvey = MainSurvey::findOrFail($id); // Pastikan ID ditemukan
+    $mainsurvey->delete(); // Hapus survey dari database
 
     return redirect()->route('mainsurveys.index')->with('success', 'Main Survey berhasil dihapus');
     }

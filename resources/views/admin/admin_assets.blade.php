@@ -72,6 +72,10 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-handshake"></i></div>
                             Mitra
                         </a>
+                        <a class="nav-link" href="/mainsurveys">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                            Main Survey
+                        </a>
                         <a class="nav-link" href="/surveys">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
                             Survey
