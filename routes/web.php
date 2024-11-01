@@ -28,7 +28,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/kerjasamaku', [KerjasamaController::class, 'index3'])->name('kerjasamaku.index');
     Route::get('/kerjasamaku/{id}/edit', [KerjasamaController::class, 'edituser'])->name('kerjasamaku.edit');
     Route::put('/kerjasamaku/{id}', [KerjasamaController::class, 'updateuser'])->name('kerjasamaku.update');
-
+    Route::get('/kerjasamaku/pivot-report', [KerjasamaController::class, 'pivotReportUser'])->name('kerjasamaku.pivot_report');
     Route::prefix('mulaikerjasama')->group(function () {
         Route::get('/', [KerjasamaController::class, 'index6'])->name('mulaikerjasama.index'); // Menampilkan daftar kerjasama; // Form untuk tambah kerjasama baru
         Route::post('/', [KerjasamaController::class, 'storeuser'])->name('mulaikerjasama.store'); // Menyimpan kerjasama baru // Form untuk edit kerjasama

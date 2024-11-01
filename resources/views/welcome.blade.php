@@ -93,7 +93,7 @@
                                     <h5> <b> Website Kemitraan </b></h5>
                                     <b class="subheading">BPS Kota Surabaya</b>
                                     <a href="/mulaikerjasama" class="btn btn-primary" style="background-color:  #175e69">Mulai Kerjasama</a>
-                                    <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
+                                    <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Pivot Kerjasama</a>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 <h1 class="mb-4 mt-3">We Cares <span>Our Team</span></h1>
                                 <b class="subheading">BPS Kota Surabaya</b>
                                 <a href="/mulaikerjasama" class="btn btn-primary" style="background-color:  #175e69" >Mulai Kerjasama</a>
-                                <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Kerjasama</a>
+                                <a href="/kerjasamaorg" class="btn btn-primary btn-outline-primary">Lihat Pivot Kerjasama </a>
                             </div>
                         </div>
                     </div>

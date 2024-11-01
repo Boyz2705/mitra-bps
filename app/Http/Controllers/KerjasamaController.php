@@ -407,6 +407,55 @@ public function pivotReport(Request $request)
     return view('kerjasama.pivot_report', compact('pivotData', 'year'));
 }
 
+public function pivotReportuser(Request $request)
+{
+    $year = $request->input('year', date('Y') + 1);
+
+    // Dapatkan data mitra berdasarkan tahun
+    $mitraData = MitraSasaranPivot::where('tahun', $year)
+        ->selectRaw('mitra_id, bulan, tepat_sasaran, SUM(total_honor) as total_honor')
+        ->groupBy('mitra_id', 'bulan', 'tepat_sasaran')
+        ->get();
+
+    // Pivot data untuk menyimpan hasil
+    $pivotData = [
+        1 => ['count' => 0, 'total_honor' => 0], // Tepat sasaran
+        0 => ['count' => 0, 'total_honor' => 0]  // Tidak tepat sasaran
+    ];
+
+    // Kumpulkan data setiap mitra per bulan
+    $mitraSasaran = [];
+
+    foreach ($mitraData as $data) {
+        if (!isset($mitraSasaran[$data->mitra_id])) {
+            $mitraSasaran[$data->mitra_id] = ['tepat_sasaran' => true, 'total_honor' => 0];
+        }
+
+        // Cek apakah bulan tertentu total honor lebih dari 4 juta (tidak tepat sasaran)
+        if ($data->total_honor > 4000000) {
+            $mitraSasaran[$data->mitra_id]['tepat_sasaran'] = false; // Tidak tepat sasaran
+        }
+
+        // Tambahkan total honor untuk mitra ini
+        $mitraSasaran[$data->mitra_id]['total_honor'] += $data->total_honor;
+    }
+
+    // Proses data untuk hitung jumlah tepat/tidak tepat sasaran
+    foreach ($mitraSasaran as $mitra) {
+        if ($mitra['tepat_sasaran']) {
+            $pivotData[1]['count']++;
+            $pivotData[1]['total_honor'] += $mitra['total_honor'];
+        } else {
+            $pivotData[0]['count']++;
+            $pivotData[0]['total_honor'] += $mitra['total_honor'];
+        }
+    }
+
+    // Kembalikan hasil sebagai JSON
+    return response()->json(['pivotData' => $pivotData, 'year' => $year]);
+}
+
+
 public function pivotMonthlyReport(Request $request)
 {
     $year = $request->input('year', date('Y'));

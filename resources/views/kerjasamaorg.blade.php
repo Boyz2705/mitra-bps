@@ -1,9 +1,16 @@
-<!-- resources/views/kerjasamaku.blade.php -->
-@extends('layouts.app')
+@extends('layouts.app3')
 
 @section('title', 'Semua Kerjasama')
 
 @section('content')
+<div class="text-center mb-4">
+    <!-- Marquee untuk menampilkan pivot report -->
+    <marquee id="pivotMarquee" behavior="scroll" direction="left" scrollamount="10" style="background-color: #ffffff; padding: 10px; width: 100%;">
+        <span id="reportText" style="font-size: 1.5rem; font-weight: bold;"></span>
+    </marquee>
+</div>
+
+
     <h2 class="text-center mb-4"><strong>Semua Kerjasama</strong></h2>
     <div class="border-custom mb-4"></div>
 
@@ -12,6 +19,7 @@
             {{ session('success') }}
         </div>
     @endif
+
 
     @if($kerjasama->isEmpty())
         <div class="alert alert-warning mb-4">
@@ -53,20 +61,11 @@
                             <td>{{ \Carbon\Carbon::parse($k->date)->format('d-m-Y') }}</td>
                             <td><strong>{{ number_format($k->honor, 0, ',', '.') }}</strong></td>
                             <td>{{ \Carbon\Carbon::parse($k->datebayar)->format('d-m-Y') }}</td>
-
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     @endif
-
-@push('scripts')
-<script>
-    $(document).ready(function() {
-        $('#datatablesSimple').DataTable();
-    });
-</script>
-@endpush
 
 @endsection
