@@ -18,4 +18,5 @@ class Kecamatan extends Model
     {
         return $this->hasMany(Kerjasama::class);
     }
+
 }

@@ -29,4 +29,5 @@ class Subsurvey1 extends Model
     public function kerjasamas(){
         return $this->hasMany(Kerjasama::class, 'subsurvey1_id');
     }
+
 }

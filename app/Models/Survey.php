@@ -27,7 +27,8 @@ class Survey extends Model
     }
 
     public function kerjasamas()
-    {
+{
     return $this->hasMany(Kerjasama::class, 'survey_id');
-    }
+}
+
 }
